@@ -5,6 +5,14 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Threads REQUIRED)
+find_package(CURL REQUIRED)
 
-add_executable(search_server src/app/main.cpp)
-target_link_libraries(search_server Threads::Threads)
+include_directories(src)
+
+add_executable(search_server
+    src/app/main.cpp
+    src/common/config.cpp
+    src/llm/ollamaClient.cpp
+    src/health/healthController.cpp
+)
+target_link_libraries(search_server Threads::Threads CURL::libcurl)
