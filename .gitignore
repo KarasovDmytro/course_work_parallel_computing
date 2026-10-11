@@ -1,4 +1,14 @@
+build/
+cmake-build-*/
+
+.vs/
+.idea/
+.vscode/
+
 .env
+data/*
+!data/.gitkeep
 deepmind-gutenberg/
+
+~$*
 *.drawio
-data/
