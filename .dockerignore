@@ -1,0 +1,7 @@
+build/
+data/
+deepmind-gutenberg/
+docs/
+.git/
+.env
+*.md
