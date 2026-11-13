@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="use-case" name="Use case">
+    <mxGraphModel dx="1657" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;fillColor=none;fontStyle=1;strokeColor=default;labelBorderColor=none;textShadow=0;labelBackgroundColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Пошукова система&lt;/font&gt;" vertex="1">
+          <mxGeometry height="520" width="830" x="70" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uc5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Виконати пошук зі стрімінгом&lt;br&gt;WS /ws/search" vertex="1">
+          <mxGeometry height="80" width="190" x="110" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uc7" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Розширити запит&lt;br&gt;через LLM" vertex="1">
+          <mxGeometry height="80" width="190" x="390" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uc4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Виконати пошук&lt;br&gt;POST /api/search" vertex="1">
+          <mxGeometry height="80" width="190" x="670" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uc6" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Виконати keyword-пошук&lt;br&gt;по індексу" vertex="1">
+          <mxGeometry height="80" width="190" x="110" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="uc2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Побудувати індекс&lt;br&gt;POST /api/index" vertex="1">
+          <mxGeometry height="80" width="190" x="670" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="uc3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Переглянути статистику&lt;br&gt;GET /api/stats" vertex="1">
+          <mxGeometry height="80" width="190" x="670" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="uc1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;" value="Перевірити стан сервера&lt;br&gt;GET /api/health" vertex="1">
+          <mxGeometry height="80" width="190" x="670" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="webUser" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Користувач&lt;br&gt;(Web UI)" vertex="1">
+          <mxGeometry height="60" width="30" x="19" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="cliUser" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Користувач&lt;br&gt;(CLI)" vertex="1">
+          <mxGeometry height="60" width="30" x="750" y="21" as="geometry" />
+        </mxCell>
+        <mxCell id="operator" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=default;align=center;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=default;" value="Оператор" vertex="1">
+          <mxGeometry height="60" width="30" x="960" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ollama" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ollama&lt;br&gt;(LLM)" vertex="1">
+          <mxGeometry height="60" width="30" x="470" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="e_web_uc5" edge="1" parent="1" source="webUser" style="html=1;endArrow=open;endFill=0;" target="uc5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cli_uc4" edge="1" parent="1" source="cliUser" style="html=1;endArrow=open;endFill=0;" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_uc4" edge="1" parent="1" source="operator" style="html=1;endArrow=open;endFill=0;" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_uc2" edge="1" parent="1" source="operator" style="html=1;endArrow=open;endFill=0;" target="uc2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_uc3" edge="1" parent="1" source="operator" style="html=1;endArrow=open;endFill=0;" target="uc3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_uc1" edge="1" parent="1" source="operator" style="html=1;endArrow=open;endFill=0;entryX=0.78;entryY=0.091;entryDx=0;entryDy=0;entryPerimeter=0;" target="uc1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_uc5_uc7" edge="1" parent="1" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;" value="«include»">
+          <mxGeometry relative="1" x="-0.1111" y="10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="300" y="220" as="sourcePoint" />
+            <mxPoint x="390" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_uc5_uc6" edge="1" parent="1" source="uc5" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;" target="uc6" value="«include»">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_uc4_uc6" edge="1" parent="1" source="uc4" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;" target="uc6" value="«include»">
+          <mxGeometry relative="1" x="0.4951" y="-19" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_uc7_uc4" edge="1" parent="1" source="uc7" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;" target="uc4" value="«extend»&lt;br&gt;mode=expanded">
+          <mxGeometry relative="1" x="-0.1111" y="20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_uc7_ollama" edge="1" parent="1" source="uc7" style="html=1;endArrow=open;endFill=0;" target="ollama">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_uc1_ollama" edge="1" parent="1" source="uc1" style="html=1;endArrow=open;endFill=0;" target="ollama">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

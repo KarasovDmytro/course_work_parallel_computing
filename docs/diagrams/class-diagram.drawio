@@ -1,0 +1,308 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="Class diagram" name="Class diagram">
+    <mxGraphModel dx="1732" dy="935" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IndexingController" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;IndexingController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="78" width="220" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexingController_a" parent="IndexingController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-builder: IndexBuilder&amp;" vertex="1">
+          <mxGeometry height="22" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexingController_d" parent="IndexingController" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexingController_m" parent="IndexingController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+RegisterRoutes(app)" vertex="1">
+          <mxGeometry height="22" width="220" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchController" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;SearchController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="78" width="220" x="20" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchController_a" parent="SearchController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-service: SearchService&amp;" vertex="1">
+          <mxGeometry height="22" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchController_d" parent="SearchController" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchController_m" parent="SearchController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+RegisterRoutes(app)" vertex="1">
+          <mxGeometry height="22" width="220" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchWsController" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;SearchWsController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="78" width="220" x="20" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchWsController_a" parent="SearchWsController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-service: SearchService&amp;" vertex="1">
+          <mxGeometry height="22" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchWsController_d" parent="SearchWsController" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchWsController_m" parent="SearchWsController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+RegisterRoutes(app)" vertex="1">
+          <mxGeometry height="22" width="220" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="HealthController" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;HealthController&lt;/b&gt;" vertex="1">
+          <mxGeometry height="78" width="220" x="20" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="HealthController_a" parent="HealthController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-ollama: OllamaClient&amp;" vertex="1">
+          <mxGeometry height="22" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="HealthController_d" parent="HealthController" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="HealthController_m" parent="HealthController" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+RegisterRoutes(app)" vertex="1">
+          <mxGeometry height="22" width="220" y="56" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexBuilder" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;IndexBuilder&lt;/b&gt;" vertex="1">
+          <mxGeometry height="158" width="290" x="320" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexBuilder_a" parent="IndexBuilder" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="&lt;div&gt;-config: Config&amp;amp;&lt;/div&gt;-index: InvertedIndex&amp;amp;&lt;br&gt;-stats: BuildStats&lt;br&gt;   {documents, index_build_time_ms,&lt;br&gt;    threads_used}" vertex="1">
+          <mxGeometry height="86" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexBuilder_d" parent="IndexBuilder" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="IndexBuilder_m" parent="IndexBuilder" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Build(threads): BuildStats&lt;br&gt;+GetStats(): BuildStats" vertex="1">
+          <mxGeometry height="38" width="290" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchService" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;SearchService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="158" width="290" x="320" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchService_a" parent="SearchService" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-index: InvertedIndex&amp;amp;&lt;br&gt;-ollama: OllamaClient&amp;amp;&lt;br&gt;-tokenizer: Tokenizer&lt;br&gt;-scorer: Scorer" vertex="1">
+          <mxGeometry height="70" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchService_d" parent="SearchService" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="SearchService_m" parent="SearchService" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Search(query, mode): Result[]&lt;br&gt;+SearchPipeline(query, onStage)&lt;br&gt;-MakeSnippet(docId, terms): string" vertex="1">
+          <mxGeometry height="54" width="290" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="OllamaClient" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;OllamaClient&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="290" x="320" y="544" as="geometry" />
+        </mxCell>
+        <mxCell id="OllamaClient_a" parent="OllamaClient" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-base_url: string&lt;br&gt;-model: string" vertex="1">
+          <mxGeometry height="38" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="OllamaClient_d" parent="OllamaClient" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="OllamaClient_m" parent="OllamaClient" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+IsAvailable(): bool&lt;br&gt;+ExpandQuery(query): string[]" vertex="1">
+          <mxGeometry height="38" width="290" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="ThreadPool" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;ThreadPool&lt;/b&gt;" vertex="1">
+          <mxGeometry height="158" width="230" x="700" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ThreadPool_a" parent="ThreadPool" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-workers: thread[]&lt;br&gt;-tasks: queue&lt;task&gt;&lt;br&gt;-mutex, condvar" vertex="1">
+          <mxGeometry height="54" width="230" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="ThreadPool_d" parent="ThreadPool" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ThreadPool_m" parent="ThreadPool" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+ThreadPool(n)&lt;br&gt;+Submit(task)&lt;br&gt;+WaitIdle()&lt;br&gt;+~ThreadPool()" vertex="1">
+          <mxGeometry height="70" width="230" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="Tokenizer" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;Tokenizer&lt;/b&gt;" vertex="1">
+          <mxGeometry height="64" width="230" x="700" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Tokenizer_a" parent="Tokenizer" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Tokenizer_d" parent="Tokenizer" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="Tokenizer_m" parent="Tokenizer" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Tokenize(text): string[]" vertex="1">
+          <mxGeometry height="22" width="230" y="42" as="geometry" />
+        </mxCell>
+        <mxCell id="TfIdfScorer" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;Scorer&lt;/b&gt;" vertex="1">
+          <mxGeometry height="64" width="230" x="700" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="TfIdfScorer_a" parent="TfIdfScorer" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="TfIdfScorer_d" parent="TfIdfScorer" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="230" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="TfIdfScorer_m" parent="TfIdfScorer" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Score(tf, df, N): double" vertex="1">
+          <mxGeometry height="22" width="230" y="42" as="geometry" />
+        </mxCell>
+        <mxCell id="InvertedIndex" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;InvertedIndex&lt;/b&gt;" vertex="1">
+          <mxGeometry height="174" width="290" x="1010" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="InvertedIndex_a" parent="InvertedIndex" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-shards: Shard[K]&lt;br&gt;-docs: string[]  (docId (індекс масиву) -&amp;gt; шлях)&lt;br&gt;-state: atomic  (Empty | Building | Ready)" vertex="1">
+          <mxGeometry height="54" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="InvertedIndex_d" parent="InvertedIndex" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="InvertedIndex_m" parent="InvertedIndex" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Reset(K)&lt;br&gt;+Add(term, docId, tf)&lt;br&gt;+Lookup(term): PostingList*&lt;br&gt;+DocPath(docId): string&lt;br&gt;+DocCount(): int" vertex="1">
+          <mxGeometry height="86" width="290" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="Shard" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;Shard&lt;/b&gt;" vertex="1">
+          <mxGeometry height="110" width="290" x="1010" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="Shard_a" parent="Shard" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-mutex: mutex&lt;br&gt;-table: HashTable&amp;lt;PostingList&amp;gt;" vertex="1">
+          <mxGeometry height="38" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Shard_d" parent="Shard" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="Shard_m" parent="Shard" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Add(term, docId, tf)  // lock усередині&lt;br&gt;+Lookup(term): PostingList*" vertex="1">
+          <mxGeometry height="38" width="290" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="HashTable" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;HashTable&amp;lt;V&amp;gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="142" width="290" x="1010" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="HashTable_a" parent="HashTable" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-buckets: Entry&amp;lt;V&amp;gt;[][]&amp;nbsp;&lt;br&gt;   Entry = {term, V}&lt;br&gt;-size: int" vertex="1">
+          <mxGeometry height="54" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="HashTable_d" parent="HashTable" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="HashTable_m" parent="HashTable" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+GetOrCreate(term): V&amp;&lt;br&gt;+Find(term): V*&lt;br&gt;-Rehash()" vertex="1">
+          <mxGeometry height="54" width="290" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="PostingList" parent="1" style="swimlane;fontStyle=0;html=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;" value="&lt;b&gt;PostingList&lt;/b&gt;" vertex="1">
+          <mxGeometry height="142" width="290" x="1010" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="PostingList_a" parent="PostingList" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="-data: Posting[]  Posting = {docId, tf}&lt;br&gt;-size: int&lt;br&gt;-capacity: int" vertex="1">
+          <mxGeometry height="54" width="290" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="PostingList_d" parent="PostingList" style="line;strokeWidth=1;html=1;" value="" vertex="1">
+          <mxGeometry height="8" width="290" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PostingList_m" parent="PostingList" style="text;html=1;align=left;verticalAlign=top;spacingLeft=6;spacingRight=4;overflow=hidden;rotatable=0;whiteSpace=wrap;fontSize=11;" value="+Append(docId, tf)&lt;br&gt;+Size(): int&lt;br&gt;+At(i): Posting" vertex="1">
+          <mxGeometry height="54" width="290" y="88" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="IndexingController" style="rounded=0;html=1;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.3734;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="IndexBuilder" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="SearchController" style="rounded=0;html=1;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.2468;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="SearchService" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="SearchWsController" style="rounded=0;html=1;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.9430;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="SearchService" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="HealthController" style="rounded=0;html=1;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="OllamaClient_a" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="SearchService" style="rounded=0;html=1;exitX=0.5000;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="OllamaClient" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5t" connectable="0" parent="e5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="IndexBuilder" style="rounded=0;html=1;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.5000;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="ThreadPool" value="«creates»">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="IndexBuilder" style="rounded=0;html=1;exitX=0.8276;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.5000;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="Tokenizer" value="«uses»">
+          <mxGeometry relative="1" x="0.2523" y="12" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="560" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="IndexBuilder" style="rounded=0;html=1;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.1724;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="InvertedIndex" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="465" y="15" />
+              <mxPoint x="970" y="15" />
+              <mxPoint x="970" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8t" connectable="0" parent="e8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="8" y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="SearchService" style="rounded=0;html=1;exitX=0.823;exitY=-0.008;exitDx=0;exitDy=0;entryX=-0.002;entryY=0.383;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;exitPerimeter=0;entryPerimeter=0;" target="Tokenizer_m" value="«uses»">
+          <mxGeometry relative="1" x="0.1074" y="10" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="560" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="SearchService" style="rounded=0;html=1;exitX=1.0000;exitY=0.4557;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.5000;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="TfIdfScorer" value="«uses»">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="SearchService" style="rounded=0;html=1;exitX=1.0000;exitY=0.7595;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.4598;entryDx=0;entryDy=0;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=11;" target="InvertedIndex" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+            <Array as="points">
+              <mxPoint x="970" y="450" />
+              <mxPoint x="970" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11t" connectable="0" parent="e11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.8466" as="geometry">
+            <mxPoint x="10" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="InvertedIndex" style="rounded=0;html=1;exitX=0.5000;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=14;endArrow=none;labelBackgroundColor=#FFFFFF;fontSize=11;" target="Shard" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12s" connectable="0" parent="e12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12t" connectable="0" parent="e12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="K" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="Shard" style="rounded=0;html=1;exitX=0.5000;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=14;endArrow=none;labelBackgroundColor=#FFFFFF;fontSize=11;" target="HashTable" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13s" connectable="0" parent="e13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13t" connectable="0" parent="e13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="HashTable" style="rounded=0;html=1;exitX=0.5000;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;startArrow=diamondThin;startFill=1;startSize=14;endArrow=none;labelBackgroundColor=#FFFFFF;fontSize=11;" target="PostingList" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14s" connectable="0" parent="e14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14t" connectable="0" parent="e14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" value="0..*" vertex="1">
+          <mxGeometry relative="1" x="0.85" as="geometry">
+            <mxPoint x="8" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
