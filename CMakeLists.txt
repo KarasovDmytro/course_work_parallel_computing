@@ -14,6 +14,7 @@ add_executable(search_server
     src/app/main.cpp
     src/common/config.cpp
     src/concurrency/threadPool.cpp
+    src/text/stemmer.cpp
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )
