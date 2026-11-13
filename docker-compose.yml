@@ -1,26 +1,48 @@
 name: search-app
 
+x-ollama-model: &ollamaModel ${OLLAMA_MODEL:-qwen2.5:0.5b}
+
 services:
   search-server:
     build: .
     ports:
       - "8080:8080"
     environment:
+      HTTP_PORT: 8080
       OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: *ollamaModel
+      LLM_TIMEOUT_SEC: 30
+      DATA_DIR: /data
+    volumes:
+      - ${DATASET_DIR:-./data}:/data:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
       interval: 10s
       timeout: 5s
       retries: 5
     depends_on:
-      - ollama
+      ollama:
+        condition: service_started
 
   ollama:
     image: ollama/ollama
-    ports:
-      - "11434:11434"
     volumes:
       - ollama_models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  ollama-init:
+    image: ollama/ollama
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    command: ["pull", *ollamaModel]
+    restart: "no"
+    depends_on:
+      ollama:
+        condition: service_healthy
 
 volumes:
   ollama_models:
