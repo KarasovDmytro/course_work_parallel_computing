@@ -1,12 +1,18 @@
 #include "ollamaClient.h"
 #include <curl/curl.h>
+#include <nlohmann/json.hpp>
 
-size_t ignoreResponse(char* data, size_t size, size_t count, void* userData) {
+using json = nlohmann::json;
+
+size_t saveResponse(char* data, size_t size, size_t count, void* userData) {
+    string* body = (string*)userData;
+    body->append(data, size * count);
     return size * count;
 }
 
-OllamaClient::OllamaClient(const string& baseUrl) {
+OllamaClient::OllamaClient(const string& baseUrl, const string& model) {
     this->baseUrl = baseUrl;
+    this->model = model;
 }
 
 bool OllamaClient::isAvailable() const {
@@ -17,10 +23,12 @@ bool OllamaClient::isAvailable() const {
     }
 
     string url = baseUrl + "/api/tags";
+    string body;
     curl_easy_setopt(handle, CURLOPT_URL, url.c_str());
     curl_easy_setopt(handle, CURLOPT_TIMEOUT_MS, 1500L);
     curl_easy_setopt(handle, CURLOPT_NOSIGNAL, 1L);
-    curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, ignoreResponse);
+    curl_easy_setopt(handle, CURLOPT_WRITEFUNCTION, saveResponse);
+    curl_easy_setopt(handle, CURLOPT_WRITEDATA, &body);
 
     CURLcode result = curl_easy_perform(handle);
 
@@ -30,5 +38,29 @@ bool OllamaClient::isAvailable() const {
     }
 
     curl_easy_cleanup(handle);
-    return result == CURLE_OK && statusCode == 200;
+
+    if (result != CURLE_OK || statusCode != 200) {
+        return false;
+    }
+    return hasModel(body);
+}
+
+bool OllamaClient::hasModel(const string& tagsJson) const {
+    json tags = json::parse(tagsJson, nullptr, false);
+
+    if (tags.is_discarded() || !tags.contains("models") || !tags["models"].is_array()) {
+        return false;
+    }
+
+    string wanted = model;
+    if (wanted.find(':') == string::npos) {
+        wanted += ":latest";
+    }
+
+    for (const json& item : tags["models"]) {
+        if (item.value("name", "") == wanted) {
+            return true;
+        }
+    }
+    return false;
 }

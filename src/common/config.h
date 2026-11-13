@@ -7,6 +7,7 @@ class Config {
 public:
     int httpPort;
     string ollamaUrl;
+    string ollamaModel;
 
     Config();
 };

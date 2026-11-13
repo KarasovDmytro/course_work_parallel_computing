@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Threads REQUIRED)
 find_package(CURL REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 include_directories(src)
 
@@ -15,4 +16,4 @@ add_executable(search_server
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )
-target_link_libraries(search_server Threads::Threads CURL::libcurl)
+target_link_libraries(search_server Threads::Threads CURL::libcurl nlohmann_json::nlohmann_json)

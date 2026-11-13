@@ -11,7 +11,7 @@ int main() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
 
     Config config;
-    OllamaClient ollama(config.ollamaUrl);
+    OllamaClient ollama(config.ollamaUrl, config.ollamaModel);
     HealthController health(ollama);
 
     crow::SimpleApp app;
