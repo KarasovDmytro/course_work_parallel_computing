@@ -2,6 +2,8 @@
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
 
+using namespace std;
+
 using json = nlohmann::json;
 
 size_t saveResponse(char* data, size_t size, size_t count, void* userData) {

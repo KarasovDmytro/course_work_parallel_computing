@@ -1,5 +1,7 @@
 #include "healthController.h"
 
+using namespace std;
+
 HealthController::HealthController(OllamaClient& ollama) : ollama(ollama) {}
 
 void HealthController::registerRoutes(crow::SimpleApp& app) {

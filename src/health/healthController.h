@@ -2,8 +2,6 @@
 #include "crow_all.h"
 #include "llm/ollamaClient.h"
 
-using namespace std;
-
 class HealthController {
 private:
     OllamaClient& ollama;

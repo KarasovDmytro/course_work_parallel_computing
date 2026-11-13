@@ -1,17 +1,15 @@
 #pragma once
 #include <string>
 
-using namespace std;
-
 class OllamaClient {
 private:
-    string baseUrl;
-    string model;
+    std::string baseUrl;
+    std::string model;
 
-    bool hasModel(const string& tagsJson) const;
+    bool hasModel(const std::string& tagsJson) const;
 
 public:
-    OllamaClient(const string& baseUrl, const string& model);
+    OllamaClient(const std::string& baseUrl, const std::string& model);
 
     bool isAvailable() const;
 };

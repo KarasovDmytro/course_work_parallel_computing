@@ -1,6 +1,8 @@
 #include "config.h"
 #include <cstdlib>
 
+using namespace std;
+
 Config::Config() {
     httpPort = 8080;
     ollamaUrl = "http://localhost:11434";
