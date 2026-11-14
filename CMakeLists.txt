@@ -17,6 +17,7 @@ add_executable(search_server
     src/text/stemmer.cpp
     src/text/tokenizer.cpp
     src/index/postingList.cpp
+    src/index/termHash.cpp
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )
