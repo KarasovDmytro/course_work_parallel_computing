@@ -19,6 +19,7 @@ add_executable(search_server
     src/index/postingList.cpp
     src/index/termHash.cpp
     src/index/shard.cpp
+    src/index/invertedIndex.cpp
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )
