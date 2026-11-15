@@ -13,6 +13,7 @@ include_directories(src)
 add_executable(search_server
     src/app/main.cpp
     src/common/config.cpp
+    src/common/jsonResponse.cpp
     src/concurrency/threadPool.cpp
     src/text/stemmer.cpp
     src/text/tokenizer.cpp

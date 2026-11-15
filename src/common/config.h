@@ -6,6 +6,7 @@ public:
     int httpPort;
     std::string ollamaUrl;
     std::string ollamaModel;
+    std::string dataDir;
 
     Config();
 };

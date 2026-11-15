@@ -7,6 +7,7 @@ Config::Config() {
     httpPort = 8080;
     ollamaUrl = "http://localhost:11434";
     ollamaModel = "qwen2.5:0.5b";
+    dataDir = "./data";
 
     const char* port = getenv("HTTP_PORT");
     if (port != nullptr) {
@@ -24,5 +25,10 @@ Config::Config() {
     const char* model = getenv("OLLAMA_MODEL");
     if (model != nullptr && model[0] != '\0') {
         ollamaModel = model;
+    }
+
+    const char* data = getenv("DATA_DIR");
+    if (data != nullptr && data[0] != '\0') {
+        dataDir = data;
     }
 }
