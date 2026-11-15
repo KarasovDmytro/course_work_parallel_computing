@@ -6,119 +6,237 @@
 <title>Book Search</title>
 <style>
     :root {
-        --bg: #f6f7f9;
-        --panel: #ffffff;
-        --text: #1d2330;
-        --muted: #6b7280;
-        --border: #dde1e7;
-        --accent: #2f6fdf;
-        --ok: #1f9d55;
-        --bad: #d14343;
-        --mark: #fde68a;
+        --paper: #eef2f6;
+        --surface: #ffffff;
+        --ink: #17212f;
+        --muted: #5a687b;
+        --rule: #d3dae3;
+        --accent: #1d5fa6;
+        --accent-soft: #dbe7f5;
+        --mark: #ffe7a0;
+        --ok: #2b7a4b;
+        --bad: #b42318;
+        --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+        --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+        --code: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, "DejaVu Sans Mono", monospace;
     }
     @media (prefers-color-scheme: dark) {
         :root {
-            --bg: #14171c;
-            --panel: #1c2027;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --border: #2d333d;
-            --accent: #6b9cf5;
-            --ok: #43c47a;
-            --bad: #ef6b6b;
-            --mark: #6b5a17;
+            --paper: #10151c;
+            --surface: #171e27;
+            --ink: #e4e9f0;
+            --muted: #93a0b2;
+            --rule: #283241;
+            --accent: #7fb2ef;
+            --accent-soft: #1d2d42;
+            --mark: #5e4b12;
+            --ok: #5cc48a;
+            --bad: #f0786c;
         }
     }
+
     * { box-sizing: border-box; }
-    body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--sans); }
+    main { max-width: 980px; margin: 0 auto; padding: 28px 16px 64px; }
+    button, input { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    code, .code { font-family: var(--code); font-size: 0.86em; }
+
+    /* Header */
+    .top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+    .wordmark { margin: 0; font-family: var(--serif); font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+    .status { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+    .status li::before {
+        content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px;
+        border-radius: 50%; background: var(--rule); vertical-align: 1px;
     }
-    main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
-    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
-    h1 { font-size: 22px; margin: 0; }
-    .badges { display: flex; gap: 8px; flex-wrap: wrap; }
-    .badge { border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 13px; color: var(--muted); background: var(--panel); }
-    .badge.ok { color: var(--ok); border-color: var(--ok); }
-    .badge.bad { color: var(--bad); border-color: var(--bad); }
-    section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
-    h2 { font-size: 15px; margin: 0 0 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-    form { display: flex; gap: 8px; flex-wrap: wrap; }
-    input { flex: 1 1 200px; min-width: 0; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; }
-    input.small { flex: 0 1 140px; }
-    button { padding: 9px 16px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
-    button:disabled { opacity: 0.5; cursor: default; }
-    .line { margin-top: 10px; color: var(--muted); font-size: 14px; }
-    .line.error { color: var(--bad); }
-    .stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .stage { border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
-    .stage .name { font-weight: 600; }
-    .stage .state { font-size: 13px; color: var(--muted); }
-    .stage.active { border-color: var(--accent); }
+    .status li.ok::before { background: var(--ok); }
+    .status li.bad::before { background: var(--bad); }
+
+    /* REST console: one row per endpoint, response fields in a line */
+    .console { margin-top: 28px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); }
+    .endpoint { padding: 14px 16px; border-top: 1px solid var(--rule); }
+    .endpoint:first-child { border-top: 0; }
+    .endpoint.needs-action { background: var(--accent-soft); }
+    .endpoint:first-child.needs-action { border-radius: 12px 12px 0 0; }
+    .endpoint:last-child.needs-action { border-radius: 0 0 12px 12px; }
+    .endpoint-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+    .route { display: flex; align-items: baseline; gap: 8px; min-width: 170px; }
+    .method { font-family: var(--code); font-size: 12px; font-weight: 700; color: var(--accent); width: 38px; }
+    .path { font-family: var(--code); font-size: 14px; font-weight: 600; }
+    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .controls label { font-family: var(--code); font-size: 13px; color: var(--muted); }
+    .controls input { width: 84px; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
+    .hint { font-size: 13px; color: var(--muted); }
+    .request { font-family: var(--code); font-size: 13px; color: var(--muted); }
+    .secondary {
+        padding: 6px 14px; border: 1px solid var(--accent); border-radius: 8px; background: transparent;
+        color: var(--accent); font-weight: 600; cursor: pointer;
+    }
+    .secondary:disabled { opacity: 0.55; cursor: default; }
+
+    .response { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; margin-top: 10px; min-height: 26px; }
+    .code-badge { font-family: var(--code); font-size: 13px; font-weight: 700; padding: 1px 8px; border-radius: 6px; background: var(--accent-soft); }
+    .code-badge.ok { color: var(--ok); }
+    .code-badge.bad { color: var(--bad); }
+    .field { display: inline-flex; align-items: baseline; gap: 8px; }
+    .field .key { font-family: var(--code); font-size: 13px; color: var(--muted); }
+    .field .value { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .field .value.text { font-size: 15px; font-weight: 500; }
+    .pending { font-size: 14px; color: var(--muted); }
+
+    details { margin-top: 8px; }
+    summary { width: fit-content; font-size: 13px; color: var(--muted); cursor: pointer; }
+    pre {
+        margin: 8px 0 0; max-height: 280px; overflow: auto; padding: 10px 12px;
+        border-radius: 8px; background: var(--paper); font-family: var(--code); font-size: 12.5px; line-height: 1.5;
+        white-space: pre-wrap; overflow-wrap: anywhere;
+    }
+
+    /* Search */
+    .search { margin-top: 36px; }
+    .search-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 10px; }
+    .search form { display: flex; gap: 10px; }
+    .search input {
+        flex: 1; min-width: 0; padding: 14px 18px;
+        border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); font-size: 20px;
+    }
+    .search input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+    .primary { padding: 0 24px; border: 0; border-radius: 12px; background: var(--accent); color: var(--surface); font-weight: 600; cursor: pointer; }
+    .primary:disabled { opacity: 0.55; cursor: default; }
+    .message { min-height: 24px; margin: 8px 2px 0; font-size: 14px; color: var(--muted); }
+    .message.error { color: var(--bad); }
+
+    /* Pipeline */
+    .pipeline { margin-top: 18px; }
+    .stages { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; padding: 0; list-style: none; }
+    .stage { position: relative; padding: 22px 12px 0 0; }
+    .stage::before { content: ""; position: absolute; top: 6px; left: 0; right: 0; height: 2px; background: var(--rule); }
+    .stage::after {
+        content: ""; position: absolute; top: 6px; left: 0; height: 2px; width: 0; background: var(--accent);
+        transition: width 0.4s ease;
+    }
+    .stage .dot {
+        position: absolute; top: 0; left: 0; z-index: 1; width: 14px; height: 14px;
+        border: 2px solid var(--rule); border-radius: 50%; background: var(--paper);
+    }
+    .stage .name { font-weight: 600; font-size: 15px; }
+    .stage .id { font-family: var(--code); font-size: 12.5px; color: var(--muted); }
+    .stage .state { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .stage.active .dot { border-color: var(--accent); animation: pulse 1.2s ease-in-out infinite; }
     .stage.active .state { color: var(--accent); }
-    .stage.done { border-color: var(--ok); }
-    .stage.done .state { color: var(--ok); }
-    .stage.failed { border-color: var(--bad); }
+    .stage.done::after { width: 100%; }
+    .stage.done .dot { border-color: var(--accent); background: var(--accent); }
+    .stage.failed .dot { border-color: var(--bad); background: var(--bad); }
     .stage.failed .state { color: var(--bad); }
-    .terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-    .term { border: 1px solid var(--border); border-radius: 6px; padding: 1px 8px; font-size: 13px; }
-    .result { padding: 12px 0; border-top: 1px solid var(--border); }
-    .result:first-of-type { border-top: 0; }
-    .result .title { display: flex; justify-content: space-between; gap: 8px; }
-    .result .doc { font-weight: 600; }
-    .result .score { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
-    .result .snippet { margin-top: 4px; overflow-wrap: anywhere; }
-    mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1px; }
-    @media (max-width: 560px) {
-        .stages { grid-template-columns: 1fr; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 5px var(--accent-soft); } }
+
+    .terms { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 30px; margin-top: 14px; font-size: 14px; color: var(--muted); }
+    .term { padding: 2px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--ink); }
+    .log-entry { display: block; padding: 6px 0; border-top: 1px dashed var(--rule); }
+    .log-entry:first-child { border-top: 0; padding-top: 0; }
+    .log-dir { color: var(--accent); font-weight: 700; }
+
+    /* Results */
+    .results { margin-top: 24px; }
+    .results-title { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--muted); }
+    .results-list { margin: 0; padding: 0; list-style: none; }
+    .result { padding: 18px 0; border-top: 1px solid var(--rule); }
+    .result-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; }
+    .result-rank { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .relevance { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+    .relevance-bar { width: 72px; height: 4px; border-radius: 2px; background: var(--rule); overflow: hidden; }
+    .relevance-bar span { display: block; height: 100%; background: var(--accent); }
+    .snippet { margin: 6px 0 0; max-width: 70ch; font-family: var(--serif); font-size: 17px; line-height: 1.6; overflow-wrap: anywhere; }
+    mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 2px; }
+    .empty { padding: 28px 0; border-top: 1px solid var(--rule); color: var(--muted); }
+
+    @media (max-width: 640px) {
+        .search form { flex-direction: column; }
+        .primary { padding: 12px 24px; }
+        .stages { grid-template-columns: 1fr; gap: 14px; }
+        .stage { padding: 0 0 0 26px; }
+        .stage::before, .stage::after { display: none; }
+        .stage .dot { top: 4px; }
+        .relevance { margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .stage::after { transition: none; }
+        .stage.active .dot { animation: none; }
     }
 </style>
 </head>
 <body>
 <main>
-    <header>
-        <h1>Book Search</h1>
-        <div class="badges">
-            <span id="serverBadge" class="badge">server: ...</span>
-            <span id="ollamaBadge" class="badge">ollama: ...</span>
-            <span id="socketBadge" class="badge">websocket: ...</span>
-        </div>
+    <header class="top">
+        <h1 class="wordmark">Book Search</h1>
+        <ul class="status" aria-label="Service status">
+            <li id="serverBadge">server</li>
+            <li id="ollamaBadge">ollama</li>
+            <li id="socketBadge">websocket</li>
+        </ul>
     </header>
 
-    <section>
-        <h2>Index</h2>
-        <form id="indexForm">
-            <input id="threadsInput" class="small" type="number" min="1" max="256" placeholder="threads (all cores)">
-            <button id="indexButton" type="submit">Build index</button>
-        </form>
-        <div id="indexLine" class="line"></div>
-        <div id="statsLine" class="line"></div>
-    </section>
-
-    <section>
-        <h2>Search</h2>
-        <form id="searchForm">
-            <input id="queryInput" type="text" placeholder="e.g. white whale" autocomplete="off">
-            <button id="searchButton" type="submit">Search</button>
-        </form>
-        <div id="searchLine" class="line"></div>
-    </section>
-
-    <section>
-        <h2>Pipeline</h2>
-        <div class="stages">
-            <div id="stageExpansion" class="stage"><div class="name">1. Query expansion</div><div class="state">waiting</div></div>
-            <div id="stageSearch" class="stage"><div class="name">2. Keyword search</div><div class="state">waiting</div></div>
-            <div id="stageDone" class="stage"><div class="name">3. Done</div><div class="state">waiting</div></div>
+    <section class="console" aria-label="REST endpoints">
+        <div class="endpoint" id="healthRow">
+            <div class="endpoint-head">
+                <div class="route"><span class="method">GET</span><span class="path">/api/health</span></div>
+                <span class="hint">checked every 10 s</span>
+            </div>
+            <div class="response" id="healthFields"><span class="pending">Waiting for the first check...</span></div>
+            <details><summary>Response JSON</summary><pre id="healthRaw">-</pre></details>
         </div>
-        <div id="terms" class="terms"></div>
+
+        <div class="endpoint" id="indexRow">
+            <div class="endpoint-head">
+                <div class="route"><span class="method">POST</span><span class="path">/api/index</span></div>
+                <form id="indexForm" class="controls">
+                    <label for="threadsInput">threads</label>
+                    <input id="threadsInput" type="number" placeholder="1-256">
+                    <button id="indexButton" class="secondary" type="submit">Build index</button>
+                </form>
+                <span id="indexRequest" class="request">body {}</span>
+            </div>
+            <div class="response" id="indexFields"><span class="pending" id="indexHint">Leave threads empty to use all CPU cores.</span></div>
+            <details><summary>Response JSON</summary><pre id="indexRaw">-</pre></details>
+        </div>
+
+        <div class="endpoint" id="statsRow">
+            <div class="endpoint-head">
+                <div class="route"><span class="method">GET</span><span class="path">/api/stats</span></div>
+                <button id="statsButton" class="secondary" type="button">Refresh</button>
+            </div>
+            <div class="response" id="statsFields"><span class="pending">Loading...</span></div>
+            <details><summary>Response JSON</summary><pre id="statsRaw">-</pre></details>
+        </div>
     </section>
 
-    <section>
-        <h2>Results</h2>
-        <div id="results" class="line">No search yet.</div>
+    <section class="search" aria-label="Search">
+        <div class="search-head">
+            <div class="route"><span class="method">WS</span><span class="path">/ws/search</span></div>
+            <span id="searchRequest" class="request">sends {"query": "..."}</span>
+            <span class="hint">returns 10 books; the limit parameter (1-100) is part of REST and the CLI</span>
+        </div>
+        <form id="searchForm">
+            <input id="queryInput" type="text" placeholder="Search the books, e.g. white whale" autocomplete="off" aria-label="Search query">
+            <button id="searchButton" class="primary" type="submit">Search</button>
+        </form>
+        <p id="searchLine" class="message" role="status"></p>
+    </section>
+
+    <section class="pipeline" aria-label="Search pipeline">
+        <ol class="stages">
+            <li id="stageExpansion" class="stage"><span class="dot"></span><div class="name">Expand query</div><div class="id">query_expansion</div><div class="state">waiting</div></li>
+            <li id="stageSearch" class="stage"><span class="dot"></span><div class="name">Search index</div><div class="id">keyword_search</div><div class="state">waiting</div></li>
+            <li id="stageDone" class="stage"><span class="dot"></span><div class="name">Done</div><div class="id">done</div><div class="state">waiting</div></li>
+        </ol>
+        <div id="terms" class="terms"></div>
+        <details><summary id="logTitle">WebSocket messages (0)</summary><pre id="socketLog">No messages yet.</pre></details>
+    </section>
+
+    <section class="results" aria-label="Results">
+        <h2 id="resultsTitle" class="results-title"></h2>
+        <div id="results"><p class="empty">Results will appear here after a search.</p></div>
     </section>
 </main>
 
@@ -127,6 +245,8 @@
     let busy = false;
     let startTime = 0;
     let highlightWords = [];
+    let lastQuery = "";
+    let logCount = 0;
 
     function element(id) {
         return document.getElementById(id);
@@ -135,13 +255,13 @@
     function setBadge(id, text, good) {
         const badge = element(id);
         badge.textContent = text;
-        badge.className = "badge " + (good ? "ok" : "bad");
+        badge.className = good ? "ok" : "bad";
     }
 
     function setLine(id, text, isError) {
         const line = element(id);
         line.textContent = text;
-        line.className = "line" + (isError ? " error" : "");
+        line.className = "message" + (isError ? " error" : "");
     }
 
     function elapsed() {
@@ -161,59 +281,144 @@
         element("terms").textContent = "";
     }
 
-    async function requestJson(method, path, body) {
+    // Sends a REST request and keeps the HTTP code and the body, also for errors.
+    async function callApi(method, path, body) {
         const options = { method: method };
         if (body !== undefined) {
             options.headers = { "Content-Type": "application/json" };
             options.body = JSON.stringify(body);
         }
         const response = await fetch(path, options);
-        const data = await response.json();
-        if (!response.ok) {
-            throw new Error(data.message || ("HTTP " + response.status));
+        const text = await response.text();
+        let data = null;
+        try {
+            data = JSON.parse(text);
+        } catch (error) {
+            data = null;
         }
-        return data;
+        return { ok: response.ok, status: response.status, data: data, text: text };
+    }
+
+    // Shows the response of one endpoint: HTTP code, then every field of the JSON in a row.
+    function showResponse(prefix, result) {
+        const box = element(prefix + "Fields");
+        box.textContent = "";
+
+        const code = document.createElement("span");
+        code.className = "code-badge " + (result.ok ? "ok" : "bad");
+        code.textContent = result.status;
+        box.appendChild(code);
+
+        if (result.data !== null && typeof result.data === "object") {
+            for (const key of Object.keys(result.data)) {
+                const field = document.createElement("span");
+                field.className = "field";
+                const name = document.createElement("span");
+                name.className = "key";
+                name.textContent = key;
+                const value = document.createElement("span");
+                const raw = result.data[key];
+                value.className = "value" + (typeof raw === "string" ? " text" : "");
+                value.textContent = String(raw);
+                field.appendChild(name);
+                field.appendChild(value);
+                box.appendChild(field);
+            }
+        }
+
+        element(prefix + "Raw").textContent = result.data !== null ? JSON.stringify(result.data, null, 2) : result.text;
+    }
+
+    function showNoConnection(prefix) {
+        const box = element(prefix + "Fields");
+        box.textContent = "";
+        const code = document.createElement("span");
+        code.className = "code-badge bad";
+        code.textContent = "no response";
+        box.appendChild(code);
+        box.appendChild(document.createTextNode("The server did not answer. Check that the containers are running."));
+        element(prefix + "Raw").textContent = "-";
     }
 
     async function refreshHealth() {
         try {
-            const health = await requestJson("GET", "/api/health");
-            setBadge("serverBadge", "server: ok", true);
-            setBadge("ollamaBadge", "ollama: " + (health.ollama ? "ready" : "unavailable"), health.ollama);
+            const result = await callApi("GET", "/api/health");
+            showResponse("health", result);
+            const ollama = result.data !== null && result.data.ollama === true;
+            setBadge("serverBadge", "server", result.ok);
+            setBadge("ollamaBadge", "ollama", ollama);
         } catch (error) {
-            setBadge("serverBadge", "server: down", false);
-            setBadge("ollamaBadge", "ollama: unknown", false);
+            showNoConnection("health");
+            setBadge("serverBadge", "server", false);
+            setBadge("ollamaBadge", "ollama", false);
         }
     }
 
     async function refreshStats() {
         try {
-            const stats = await requestJson("GET", "/api/stats");
-            setLine("statsLine", "Documents: " + stats.documents + ", last build: " + stats.index_build_time_ms
-                + " ms with " + stats.threads_used + " threads", false);
+            const result = await callApi("GET", "/api/stats");
+            showResponse("stats", result);
+            const empty = result.ok && result.data !== null && result.data.documents === 0;
+            element("indexRow").classList.toggle("needs-action", empty);
+            if (empty && element("indexHint") !== null) {
+                element("indexHint").textContent = "No books are indexed yet. Build the index once before searching.";
+            }
         } catch (error) {
-            setLine("statsLine", "Stats are not available: " + error.message, true);
+            showNoConnection("stats");
         }
     }
 
-    async function buildIndex(event) {
-        event.preventDefault();
+    function indexBody() {
         const body = {};
         const threads = element("threadsInput").value.trim();
         if (threads !== "") {
             body.threads = Number(threads);
         }
+        return body;
+    }
+
+    function updateIndexRequest() {
+        element("indexRequest").textContent = "body " + JSON.stringify(indexBody());
+    }
+
+    async function buildIndex(event) {
+        event.preventDefault();
+        const body = indexBody();
 
         element("indexButton").disabled = true;
-        setLine("indexLine", "Building the index...", false);
+        element("indexButton").textContent = "Building...";
+        element("indexFields").textContent = "Waiting for the response: the server answers when the index is built.";
+        element("indexRaw").textContent = "-";
         try {
-            const result = await requestJson("POST", "/api/index", body);
-            setLine("indexLine", "Indexed " + result.documents_indexed + " documents in " + result.time_ms + " ms", false);
+            const result = await callApi("POST", "/api/index", body);
+            showResponse("index", result);
+            if (result.ok) {
+                setLine("searchLine", "", false);
+            }
         } catch (error) {
-            setLine("indexLine", "Error: " + error.message, true);
+            showNoConnection("index");
         }
         element("indexButton").disabled = false;
+        element("indexButton").textContent = "Build index";
         refreshStats();
+    }
+
+    function logMessage(direction, message) {
+        const log = element("socketLog");
+        if (logCount === 0) {
+            log.textContent = "";
+        }
+        logCount++;
+
+        const entry = document.createElement("span");
+        entry.className = "log-entry";
+        const dir = document.createElement("span");
+        dir.className = "log-dir";
+        dir.textContent = (direction === "sent" ? "sent " : "received ") + (busy ? elapsed() : "") + "\n";
+        entry.appendChild(dir);
+        entry.appendChild(document.createTextNode(JSON.stringify(message, null, 2)));
+        log.appendChild(entry);
+        element("logTitle").textContent = "WebSocket messages (" + logCount + ")";
     }
 
     function connect() {
@@ -221,18 +426,20 @@
         socket = new WebSocket(protocol + location.host + "/ws/search");
 
         socket.onopen = function () {
-            setBadge("socketBadge", "websocket: connected", true);
+            setBadge("socketBadge", "websocket", true);
         };
         socket.onclose = function () {
-            setBadge("socketBadge", "websocket: reconnecting", false);
+            setBadge("socketBadge", "websocket", false);
             if (busy) {
                 finishSearch();
-                setLine("searchLine", "Connection lost during the search", true);
+                setLine("searchLine", "The connection dropped during the search. Try again in a moment.", true);
             }
             setTimeout(connect, 2000);
         };
         socket.onmessage = function (event) {
-            handleMessage(JSON.parse(event.data));
+            const message = JSON.parse(event.data);
+            logMessage("received", message);
+            handleMessage(message);
         };
     }
 
@@ -243,17 +450,22 @@
             return;
         }
         if (socket === null || socket.readyState !== WebSocket.OPEN) {
-            setLine("searchLine", "WebSocket is not connected yet", true);
+            setLine("searchLine", "The WebSocket is not connected yet. Try again in a moment.", true);
             return;
         }
 
         busy = true;
+        lastQuery = query;
         element("searchButton").disabled = true;
         startTime = performance.now();
         highlightWords = query.split(/[^A-Za-z0-9]+/);
         resetStages();
-        setLine("searchLine", "Searching for \"" + query + "\"...", false);
-        socket.send(JSON.stringify({ query: query }));
+        setLine("searchLine", "", false);
+
+        const message = { query: query };
+        element("searchRequest").textContent = "sends " + JSON.stringify(message);
+        logMessage("sent", message);
+        socket.send(JSON.stringify(message));
     }
 
     function finishSearch() {
@@ -264,18 +476,17 @@
     function handleMessage(message) {
         if (message.stage === "query_expansion") {
             const terms = message.data.expanded_terms;
-            setStage("stageExpansion", "done", terms.length + " terms, " + elapsed());
-            setStage("stageSearch", "active", "searching the index...");
+            setStage("stageExpansion", "done", "expanded_terms: " + terms.length + ", " + elapsed());
+            setStage("stageSearch", "active", "searching...");
             showTerms(terms);
             for (const term of terms) {
                 highlightWords = highlightWords.concat(term.split(/[^A-Za-z0-9]+/));
             }
         } else if (message.stage === "keyword_search") {
-            setStage("stageSearch", "done", message.data.results.length + " results, search " + message.data.time_ms + " ms");
+            setStage("stageSearch", "done", "results: " + message.data.results.length + ", time_ms: " + message.data.time_ms);
             showResults(message.data.results);
         } else if (message.stage === "done") {
             setStage("stageDone", "done", "total " + elapsed());
-            setLine("searchLine", "", false);
             finishSearch();
         } else if (message.stage === "error") {
             for (const id of ["stageExpansion", "stageSearch", "stageDone"]) {
@@ -283,7 +494,9 @@
                     setStage(id, "failed", "error");
                 }
             }
-            setLine("searchLine", "Error: " + message.data.message, true);
+            setLine("searchLine", message.data.message === "index is not ready"
+                ? "error: index is not ready. Build the index with POST /api/index, then search again."
+                : "error: " + message.data.message, true);
             if (message.data.message !== "previous query is still in progress") {
                 finishSearch();
             }
@@ -294,9 +507,10 @@
         const box = element("terms");
         box.textContent = "";
         if (terms.length === 0) {
-            box.textContent = "No expansion (the LLM is unavailable or gave no terms).";
+            box.textContent = "expanded_terms is empty: the search used the query as typed.";
             return;
         }
+        box.appendChild(document.createTextNode("expanded_terms"));
         for (const term of terms) {
             const chip = document.createElement("span");
             chip.className = "term";
@@ -328,42 +542,76 @@
         return fragment;
     }
 
+    function makeField(key, valueText) {
+        const field = document.createElement("span");
+        field.className = "field";
+        const name = document.createElement("span");
+        name.className = "key";
+        name.textContent = key;
+        const value = document.createElement("span");
+        value.className = "value text";
+        value.textContent = valueText;
+        field.appendChild(name);
+        field.appendChild(value);
+        return field;
+    }
+
     function showResults(results) {
         const box = element("results");
         box.textContent = "";
-        box.className = "";
+
         if (results.length === 0) {
-            box.className = "line";
-            box.textContent = "Nothing found.";
+            element("resultsTitle").textContent = "";
+            const empty = document.createElement("p");
+            empty.className = "empty";
+            empty.textContent = "results is empty: no book contains “" + lastQuery + "”. Try other words.";
+            box.appendChild(empty);
             return;
         }
 
+        element("resultsTitle").textContent = results.length + " books for “" + lastQuery + "”";
+        const topScore = results[0].score > 0 ? results[0].score : 1;
+        const list = document.createElement("ol");
+        list.className = "results-list";
+
         results.forEach(function (result, index) {
-            const item = document.createElement("div");
+            const item = document.createElement("li");
             item.className = "result";
 
-            const title = document.createElement("div");
-            title.className = "title";
-            const doc = document.createElement("span");
-            doc.className = "doc";
-            doc.textContent = (index + 1) + ". " + result.doc_id;
-            const score = document.createElement("span");
-            score.className = "score";
-            score.textContent = "score " + result.score.toFixed(3);
-            title.appendChild(doc);
-            title.appendChild(score);
+            const head = document.createElement("div");
+            head.className = "result-head";
+            const rank = document.createElement("span");
+            rank.className = "result-rank";
+            rank.textContent = (index + 1) + ".";
+            head.appendChild(rank);
+            head.appendChild(makeField("doc_id", result.doc_id));
+            head.appendChild(makeField("score", result.score.toFixed(3)));
 
-            const snippet = document.createElement("div");
+            const relevance = document.createElement("span");
+            relevance.className = "relevance";
+            relevance.title = "Score relative to the first result";
+            const bar = document.createElement("span");
+            bar.className = "relevance-bar";
+            const fill = document.createElement("span");
+            fill.style.width = Math.max(4, Math.round(result.score / topScore * 100)) + "%";
+            bar.appendChild(fill);
+            relevance.appendChild(bar);
+            head.appendChild(relevance);
+
+            const snippet = document.createElement("p");
             snippet.className = "snippet";
             snippet.appendChild(highlight(result.snippet));
 
-            item.appendChild(title);
+            item.appendChild(head);
             item.appendChild(snippet);
-            box.appendChild(item);
+            list.appendChild(item);
         });
+        box.appendChild(list);
     }
 
     element("indexForm").addEventListener("submit", buildIndex);
+    element("threadsInput").addEventListener("input", updateIndexRequest);
+    element("statsButton").addEventListener("click", refreshStats);
     element("searchForm").addEventListener("submit", search);
     connect();
     refreshHealth();
