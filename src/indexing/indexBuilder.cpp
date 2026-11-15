@@ -2,8 +2,7 @@
 #include <algorithm>
 #include <chrono>
 #include <filesystem>
-#include <fstream>
-#include <stdexcept>
+#include "common/fileReader.h"
 #include "concurrency/threadPool.h"
 #include "index/hashTable.h"
 #include "index/termHash.h"
@@ -31,17 +30,7 @@ vector<string> IndexBuilder::findFiles() const {
 }
 
 void IndexBuilder::indexFile(int docId, const string& path) {
-    ifstream file(path, ios::binary);
-    if (!file) {
-        throw runtime_error("cannot open " + path);
-    }
-
-    file.seekg(0, ios::end);
-    long long size = file.tellg();
-    file.seekg(0, ios::beg);
-    string text(size, '\0');
-    file.read(&text[0], size);
-
+    string text = readFile(path);
     vector<string> terms = tokenizer.tokenize(text);
     HashTable<int> counts;
     for (int i = 0; i < (int)terms.size(); i++) {
