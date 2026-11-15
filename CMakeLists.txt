@@ -24,6 +24,8 @@ add_executable(search_server
     src/index/invertedIndex.cpp
     src/indexing/indexBuilder.cpp
     src/indexing/indexingController.cpp
+    src/search/searchService.cpp
+    src/search/searchController.cpp
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )

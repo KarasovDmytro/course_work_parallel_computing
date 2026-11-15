@@ -7,6 +7,8 @@
 #include "index/invertedIndex.h"
 #include "indexing/indexBuilder.h"
 #include "indexing/indexingController.h"
+#include "search/searchService.h"
+#include "search/searchController.h"
 
 using namespace std;
 
@@ -17,13 +19,16 @@ int main() {
     OllamaClient ollama(config.ollamaUrl, config.ollamaModel);
     InvertedIndex index;
     IndexBuilder builder(index, config.dataDir);
+    SearchService searchService(index);
 
     HealthController health(ollama);
     IndexingController indexing(builder);
+    SearchController search(searchService);
 
     crow::SimpleApp app;
     health.registerRoutes(app);
     indexing.registerRoutes(app);
+    search.registerRoutes(app);
 
     cout << "Server started on port " << config.httpPort << endl;
     app.port(config.httpPort).multithreaded().run();
