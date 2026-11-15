@@ -33,3 +33,9 @@ add_executable(search_server
     src/health/healthController.cpp
 )
 target_link_libraries(search_server Threads::Threads CURL::libcurl nlohmann_json::nlohmann_json)
+
+add_executable(search
+    clients/cli/main.cpp
+    clients/cli/httpClient.cpp
+)
+target_link_libraries(search CURL::libcurl nlohmann_json::nlohmann_json)

@@ -7,8 +7,10 @@ RUN curl -fL -o /usr/local/include/crow_all.h https://github.com/CrowCpp/Crow/re
 WORKDIR /app
 COPY CMakeLists.txt .
 COPY src src
+COPY clients clients
 
 RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build
+RUN ln -s /app/build/search /usr/local/bin/search
 
 EXPOSE 8080
 CMD ["./build/search_server"]
