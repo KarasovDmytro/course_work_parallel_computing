@@ -13,23 +13,34 @@ char Tokenizer::toLower(unsigned char c) const {
     return c;
 }
 
-vector<string> Tokenizer::tokenize(const string& text) const {
-    vector<string> terms;
-    string current;
+bool Tokenizer::nextToken(const string& text, int& position, Token& token) const {
+    int size = (int)text.size();
 
-    for (int i = 0; i < (int)text.size(); i++) {
-        unsigned char c = text[i];
-
-        if (isTokenChar(c)) {
-            current += toLower(c);
-        } else if (!current.empty()) {
-            terms.push_back(stemmer.stem(current));
-            current.clear();
-        }
+    while (position < size && !isTokenChar(text[position])) {
+        position++;
+    }
+    if (position >= size) {
+        return false;
     }
 
-    if (!current.empty()) {
-        terms.push_back(stemmer.stem(current));
+    token.start = position;
+    string word;
+    while (position < size && isTokenChar(text[position])) {
+        word += toLower(text[position]);
+        position++;
+    }
+    token.end = position;
+    token.term = stemmer.stem(word);
+    return true;
+}
+
+vector<string> Tokenizer::tokenize(const string& text) const {
+    vector<string> terms;
+    int position = 0;
+    Token token;
+
+    while (nextToken(text, position, token)) {
+        terms.push_back(token.term);
     }
     return terms;
 }
