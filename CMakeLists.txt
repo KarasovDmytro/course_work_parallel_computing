@@ -22,6 +22,7 @@ add_executable(search_server
     src/index/shard.cpp
     src/index/invertedIndex.cpp
     src/indexing/indexBuilder.cpp
+    src/indexing/indexingController.cpp
     src/llm/ollamaClient.cpp
     src/health/healthController.cpp
 )
