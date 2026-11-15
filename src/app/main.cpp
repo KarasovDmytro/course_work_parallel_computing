@@ -10,6 +10,7 @@
 #include "indexing/indexingController.h"
 #include "search/searchService.h"
 #include "search/searchController.h"
+#include "search/wsSearchController.h"
 
 using namespace std;
 
@@ -26,11 +27,13 @@ int main() {
     HealthController health(ollama);
     IndexingController indexing(builder);
     SearchController search(searchService, expander);
+    WsSearchController wsSearch(searchService, expander, config.httpThreads);
 
     crow::SimpleApp app;
     health.registerRoutes(app);
     indexing.registerRoutes(app);
     search.registerRoutes(app);
+    wsSearch.registerRoutes(app);
 
     cout << "Server started on port " << config.httpPort << endl;
     app.port(config.httpPort).concurrency(config.httpThreads).run();
