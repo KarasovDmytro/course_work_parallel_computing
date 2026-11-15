@@ -3,6 +3,7 @@
 #include <exception>
 #include <nlohmann/json.hpp>
 #include "common/jsonResponse.h"
+#include "search/searchJson.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -76,17 +77,8 @@ crow::response SearchController::handleSearch(const crow::request& request) {
         return errorResponse(409, "index is not ready");
     }
 
-    json results = json::array();
-    for (int i = 0; i < (int)outcome.results.size(); i++) {
-        json item;
-        item["doc_id"] = outcome.results[i].docId;
-        item["score"] = outcome.results[i].score;
-        item["snippet"] = outcome.results[i].snippet;
-        results.push_back(item);
-    }
-
     json response;
-    response["results"] = results;
+    response["results"] = resultsToJson(outcome.results);
     if (mode == "expanded") {
         response["expanded_terms"] = expandedTerms;
     }
