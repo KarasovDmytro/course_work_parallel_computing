@@ -2,6 +2,7 @@
 #include <curl/curl.h>
 #include "crow_all.h"
 #include "common/config.h"
+#include "common/jsonResponse.h"
 #include "llm/ollamaClient.h"
 #include "llm/queryExpander.h"
 #include "health/healthController.h"
@@ -34,6 +35,14 @@ int main() {
     indexing.registerRoutes(app);
     search.registerRoutes(app);
     wsSearch.registerRoutes(app);
+
+    CROW_CATCHALL_ROUTE(app)([](crow::response& response) {
+        if (response.code == 405) {
+            response = errorResponse(405, "method not allowed");
+        } else {
+            response = errorResponse(404, "unknown path");
+        }
+    });
 
     cout << "Server started on port " << config.httpPort << endl;
     app.port(config.httpPort).concurrency(config.httpThreads).run();
