@@ -28,6 +28,7 @@ add_executable(search_server
     src/search/searchController.cpp
     src/search/searchJson.cpp
     src/search/wsSearchController.cpp
+    src/web/webController.cpp
     src/llm/ollamaClient.cpp
     src/llm/queryExpander.cpp
     src/health/healthController.cpp

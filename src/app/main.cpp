@@ -12,6 +12,7 @@
 #include "search/searchService.h"
 #include "search/searchController.h"
 #include "search/wsSearchController.h"
+#include "web/webController.h"
 
 using namespace std;
 
@@ -29,12 +30,14 @@ int main() {
     IndexingController indexing(builder);
     SearchController search(searchService, expander);
     WsSearchController wsSearch(searchService, expander, config.httpThreads);
+    WebController web(config.webDir);
 
     crow::SimpleApp app;
     health.registerRoutes(app);
     indexing.registerRoutes(app);
     search.registerRoutes(app);
     wsSearch.registerRoutes(app);
+    web.registerRoutes(app);
 
     CROW_CATCHALL_ROUTE(app)([](crow::response& response) {
         if (response.code == 405) {

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book Search</title>
+<style>
+    :root {
+        --bg: #f6f7f9;
+        --panel: #ffffff;
+        --text: #1d2330;
+        --muted: #6b7280;
+        --border: #dde1e7;
+        --accent: #2f6fdf;
+        --ok: #1f9d55;
+        --bad: #d14343;
+        --mark: #fde68a;
+    }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg: #14171c;
+            --panel: #1c2027;
+            --text: #e5e7eb;
+            --muted: #9aa3af;
+            --border: #2d333d;
+            --accent: #6b9cf5;
+            --ok: #43c47a;
+            --bad: #ef6b6b;
+            --mark: #6b5a17;
+        }
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+    header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    h1 { font-size: 22px; margin: 0; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 13px; color: var(--muted); background: var(--panel); }
+    .badge.ok { color: var(--ok); border-color: var(--ok); }
+    .badge.bad { color: var(--bad); border-color: var(--bad); }
+    section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    h2 { font-size: 15px; margin: 0 0 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    form { display: flex; gap: 8px; flex-wrap: wrap; }
+    input { flex: 1 1 200px; min-width: 0; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; }
+    input.small { flex: 0 1 140px; }
+    button { padding: 9px 16px; border: 0; border-radius: 8px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+    button:disabled { opacity: 0.5; cursor: default; }
+    .line { margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .line.error { color: var(--bad); }
+    .stages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stage { border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
+    .stage .name { font-weight: 600; }
+    .stage .state { font-size: 13px; color: var(--muted); }
+    .stage.active { border-color: var(--accent); }
+    .stage.active .state { color: var(--accent); }
+    .stage.done { border-color: var(--ok); }
+    .stage.done .state { color: var(--ok); }
+    .stage.failed { border-color: var(--bad); }
+    .stage.failed .state { color: var(--bad); }
+    .terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .term { border: 1px solid var(--border); border-radius: 6px; padding: 1px 8px; font-size: 13px; }
+    .result { padding: 12px 0; border-top: 1px solid var(--border); }
+    .result:first-of-type { border-top: 0; }
+    .result .title { display: flex; justify-content: space-between; gap: 8px; }
+    .result .doc { font-weight: 600; }
+    .result .score { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+    .result .snippet { margin-top: 4px; overflow-wrap: anywhere; }
+    mark { background: var(--mark); color: inherit; border-radius: 3px; padding: 0 1px; }
+    @media (max-width: 560px) {
+        .stages { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+<main>
+    <header>
+        <h1>Book Search</h1>
+        <div class="badges">
+            <span id="serverBadge" class="badge">server: ...</span>
+            <span id="ollamaBadge" class="badge">ollama: ...</span>
+            <span id="socketBadge" class="badge">websocket: ...</span>
+        </div>
+    </header>
+
+    <section>
+        <h2>Index</h2>
+        <form id="indexForm">
+            <input id="threadsInput" class="small" type="number" min="1" max="256" placeholder="threads (all cores)">
+            <button id="indexButton" type="submit">Build index</button>
+        </form>
+        <div id="indexLine" class="line"></div>
+        <div id="statsLine" class="line"></div>
+    </section>
+
+    <section>
+        <h2>Search</h2>
+        <form id="searchForm">
+            <input id="queryInput" type="text" placeholder="e.g. white whale" autocomplete="off">
+            <button id="searchButton" type="submit">Search</button>
+        </form>
+        <div id="searchLine" class="line"></div>
+    </section>
+
+    <section>
+        <h2>Pipeline</h2>
+        <div class="stages">
+            <div id="stageExpansion" class="stage"><div class="name">1. Query expansion</div><div class="state">waiting</div></div>
+            <div id="stageSearch" class="stage"><div class="name">2. Keyword search</div><div class="state">waiting</div></div>
+            <div id="stageDone" class="stage"><div class="name">3. Done</div><div class="state">waiting</div></div>
+        </div>
+        <div id="terms" class="terms"></div>
+    </section>
+
+    <section>
+        <h2>Results</h2>
+        <div id="results" class="line">No search yet.</div>
+    </section>
+</main>
+
+<script>
+    let socket = null;
+    let busy = false;
+    let startTime = 0;
+    let highlightWords = [];
+
+    function element(id) {
+        return document.getElementById(id);
+    }
+
+    function setBadge(id, text, good) {
+        const badge = element(id);
+        badge.textContent = text;
+        badge.className = "badge " + (good ? "ok" : "bad");
+    }
+
+    function setLine(id, text, isError) {
+        const line = element(id);
+        line.textContent = text;
+        line.className = "line" + (isError ? " error" : "");
+    }
+
+    function elapsed() {
+        return Math.round(performance.now() - startTime) + " ms";
+    }
+
+    function setStage(id, state, text) {
+        const stage = element(id);
+        stage.className = "stage " + state;
+        stage.querySelector(".state").textContent = text;
+    }
+
+    function resetStages() {
+        setStage("stageExpansion", "active", "asking the LLM...");
+        setStage("stageSearch", "", "waiting");
+        setStage("stageDone", "", "waiting");
+        element("terms").textContent = "";
+    }
+
+    async function requestJson(method, path, body) {
+        const options = { method: method };
+        if (body !== undefined) {
+            options.headers = { "Content-Type": "application/json" };
+            options.body = JSON.stringify(body);
+        }
+        const response = await fetch(path, options);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message || ("HTTP " + response.status));
+        }
+        return data;
+    }
+
+    async function refreshHealth() {
+        try {
+            const health = await requestJson("GET", "/api/health");
+            setBadge("serverBadge", "server: ok", true);
+            setBadge("ollamaBadge", "ollama: " + (health.ollama ? "ready" : "unavailable"), health.ollama);
+        } catch (error) {
+            setBadge("serverBadge", "server: down", false);
+            setBadge("ollamaBadge", "ollama: unknown", false);
+        }
+    }
+
+    async function refreshStats() {
+        try {
+            const stats = await requestJson("GET", "/api/stats");
+            setLine("statsLine", "Documents: " + stats.documents + ", last build: " + stats.index_build_time_ms
+                + " ms with " + stats.threads_used + " threads", false);
+        } catch (error) {
+            setLine("statsLine", "Stats are not available: " + error.message, true);
+        }
+    }
+
+    async function buildIndex(event) {
+        event.preventDefault();
+        const body = {};
+        const threads = element("threadsInput").value.trim();
+        if (threads !== "") {
+            body.threads = Number(threads);
+        }
+
+        element("indexButton").disabled = true;
+        setLine("indexLine", "Building the index...", false);
+        try {
+            const result = await requestJson("POST", "/api/index", body);
+            setLine("indexLine", "Indexed " + result.documents_indexed + " documents in " + result.time_ms + " ms", false);
+        } catch (error) {
+            setLine("indexLine", "Error: " + error.message, true);
+        }
+        element("indexButton").disabled = false;
+        refreshStats();
+    }
+
+    function connect() {
+        const protocol = location.protocol === "https:" ? "wss://" : "ws://";
+        socket = new WebSocket(protocol + location.host + "/ws/search");
+
+        socket.onopen = function () {
+            setBadge("socketBadge", "websocket: connected", true);
+        };
+        socket.onclose = function () {
+            setBadge("socketBadge", "websocket: reconnecting", false);
+            if (busy) {
+                finishSearch();
+                setLine("searchLine", "Connection lost during the search", true);
+            }
+            setTimeout(connect, 2000);
+        };
+        socket.onmessage = function (event) {
+            handleMessage(JSON.parse(event.data));
+        };
+    }
+
+    function search(event) {
+        event.preventDefault();
+        const query = element("queryInput").value.trim();
+        if (query === "" || busy) {
+            return;
+        }
+        if (socket === null || socket.readyState !== WebSocket.OPEN) {
+            setLine("searchLine", "WebSocket is not connected yet", true);
+            return;
+        }
+
+        busy = true;
+        element("searchButton").disabled = true;
+        startTime = performance.now();
+        highlightWords = query.split(/[^A-Za-z0-9]+/);
+        resetStages();
+        setLine("searchLine", "Searching for \"" + query + "\"...", false);
+        socket.send(JSON.stringify({ query: query }));
+    }
+
+    function finishSearch() {
+        busy = false;
+        element("searchButton").disabled = false;
+    }
+
+    function handleMessage(message) {
+        if (message.stage === "query_expansion") {
+            const terms = message.data.expanded_terms;
+            setStage("stageExpansion", "done", terms.length + " terms, " + elapsed());
+            setStage("stageSearch", "active", "searching the index...");
+            showTerms(terms);
+            for (const term of terms) {
+                highlightWords = highlightWords.concat(term.split(/[^A-Za-z0-9]+/));
+            }
+        } else if (message.stage === "keyword_search") {
+            setStage("stageSearch", "done", message.data.results.length + " results, search " + message.data.time_ms + " ms");
+            showResults(message.data.results);
+        } else if (message.stage === "done") {
+            setStage("stageDone", "done", "total " + elapsed());
+            setLine("searchLine", "", false);
+            finishSearch();
+        } else if (message.stage === "error") {
+            for (const id of ["stageExpansion", "stageSearch", "stageDone"]) {
+                if (element(id).classList.contains("active")) {
+                    setStage(id, "failed", "error");
+                }
+            }
+            setLine("searchLine", "Error: " + message.data.message, true);
+            if (message.data.message !== "previous query is still in progress") {
+                finishSearch();
+            }
+        }
+    }
+
+    function showTerms(terms) {
+        const box = element("terms");
+        box.textContent = "";
+        if (terms.length === 0) {
+            box.textContent = "No expansion (the LLM is unavailable or gave no terms).";
+            return;
+        }
+        for (const term of terms) {
+            const chip = document.createElement("span");
+            chip.className = "term";
+            chip.textContent = term;
+            box.appendChild(chip);
+        }
+    }
+
+    function highlight(text) {
+        const words = highlightWords.filter(function (word) { return word.length >= 2; })
+            .map(function (word) { return word.toLowerCase(); });
+        const fragment = document.createDocumentFragment();
+        if (words.length === 0) {
+            fragment.appendChild(document.createTextNode(text));
+            return fragment;
+        }
+
+        const pattern = new RegExp("\\b(" + words.join("|") + ")[a-z0-9]*", "gi");
+        let last = 0;
+        let match;
+        while ((match = pattern.exec(text)) !== null) {
+            fragment.appendChild(document.createTextNode(text.slice(last, match.index)));
+            const mark = document.createElement("mark");
+            mark.textContent = match[0];
+            fragment.appendChild(mark);
+            last = match.index + match[0].length;
+        }
+        fragment.appendChild(document.createTextNode(text.slice(last)));
+        return fragment;
+    }
+
+    function showResults(results) {
+        const box = element("results");
+        box.textContent = "";
+        box.className = "";
+        if (results.length === 0) {
+            box.className = "line";
+            box.textContent = "Nothing found.";
+            return;
+        }
+
+        results.forEach(function (result, index) {
+            const item = document.createElement("div");
+            item.className = "result";
+
+            const title = document.createElement("div");
+            title.className = "title";
+            const doc = document.createElement("span");
+            doc.className = "doc";
+            doc.textContent = (index + 1) + ". " + result.doc_id;
+            const score = document.createElement("span");
+            score.className = "score";
+            score.textContent = "score " + result.score.toFixed(3);
+            title.appendChild(doc);
+            title.appendChild(score);
+
+            const snippet = document.createElement("div");
+            snippet.className = "snippet";
+            snippet.appendChild(highlight(result.snippet));
+
+            item.appendChild(title);
+            item.appendChild(snippet);
+            box.appendChild(item);
+        });
+    }
+
+    element("indexForm").addEventListener("submit", buildIndex);
+    element("searchForm").addEventListener("submit", search);
+    connect();
+    refreshHealth();
+    refreshStats();
+    setInterval(refreshHealth, 10000);
+</script>
+</body>
+</html>

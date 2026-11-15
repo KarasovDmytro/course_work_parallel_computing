@@ -9,6 +9,7 @@ Config::Config() {
     ollamaUrl = "http://localhost:11434";
     ollamaModel = "qwen2.5:0.5b";
     dataDir = "./data";
+    webDir = "./clients/web";
     llmTimeoutSec = 30;
 
     const char* port = getenv("HTTP_PORT");
@@ -40,6 +41,11 @@ Config::Config() {
     const char* data = getenv("DATA_DIR");
     if (data != nullptr && data[0] != '\0') {
         dataDir = data;
+    }
+
+    const char* web = getenv("WEB_DIR");
+    if (web != nullptr && web[0] != '\0') {
+        webDir = web;
     }
 
     const char* timeout = getenv("LLM_TIMEOUT_SEC");
