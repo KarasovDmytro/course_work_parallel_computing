@@ -27,6 +27,7 @@ add_executable(search_server
     src/search/searchService.cpp
     src/search/searchController.cpp
     src/llm/ollamaClient.cpp
+    src/llm/queryExpander.cpp
     src/health/healthController.cpp
 )
 target_link_libraries(search_server Threads::Threads CURL::libcurl nlohmann_json::nlohmann_json)
