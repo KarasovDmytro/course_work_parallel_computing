@@ -11,7 +11,8 @@ const int defaultLimit = 10;
 const int minLimit = 1;
 const int maxLimit = 100;
 
-SearchController::SearchController(SearchService& service) : service(service) {
+SearchController::SearchController(SearchService& service, QueryExpander& expander)
+    : service(service), expander(expander) {
 }
 
 void SearchController::registerRoutes(crow::SimpleApp& app) {
@@ -57,6 +58,12 @@ crow::response SearchController::handleSearch(const crow::request& request) {
     }
 
     vector<string> expandedTerms;
+    if (mode == "expanded") {
+        if (!service.isReady()) {
+            return errorResponse(409, "index is not ready");
+        }
+        expandedTerms = expander.expand(query);
+    }
 
     SearchOutcome outcome;
     try {

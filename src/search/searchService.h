@@ -32,5 +32,6 @@ private:
 public:
     SearchService(InvertedIndex& index);
 
+    bool isReady() const;
     SearchOutcome search(const std::string& query, const std::vector<std::string>& expandedWords, int limit) const;
 };

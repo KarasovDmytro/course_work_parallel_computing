@@ -24,6 +24,10 @@ static bool isUtf8Continuation(char c) {
 SearchService::SearchService(InvertedIndex& index) : index(index) {
 }
 
+bool SearchService::isReady() const {
+    return index.getState() == IndexState::Ready;
+}
+
 void SearchService::addTerms(vector<QueryTerm>& terms, const string& text, double weight) const {
     vector<string> words = tokenizer.tokenize(text);
 
