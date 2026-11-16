@@ -11,3 +11,6 @@ data/*
 deepmind-gutenberg/
 
 ~$*
+
+.venv/
+__pycache__/

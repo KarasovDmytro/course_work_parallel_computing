@@ -14,6 +14,7 @@
 - [Змінні середовища](#змінні-середовища)
 - [Структура репозиторію](#структура-репозиторію)
 - [Збірка без Docker](#збірка-без-docker)
+- [Бенчмарки](#бенчмарки)
 
 ## Що потрібно
 
@@ -475,6 +476,8 @@ src/                  сервер
   web/                GET / (Web UI)
 clients/cli/          CLI-клієнт
 clients/web/          сторінка Web UI
+bench/                index_bench: вимірювання побудови індексу
+docs/benchmarks/      скрипти бенчмарків, результати й графіки
 docs/diagrams/        UML-діаграми
 data/                 датасет за замовчуванням (порожній)
 search, search.cmd    запуск CLI з хоста
@@ -501,3 +504,69 @@ cmake --build build
 ```
 
 Без Ollama на `localhost:11434` сервер працює, лише розширення запиту повертає порожній список. Налагодження: `gdb ./build/search_server`.
+
+## Бенчмарки
+
+Дослідження масштабованості складається з таких експериментів:
+
+| | Що міряється | Чим |
+|---|---|---|
+| E1 | час побудови індексу, прискорення й ефективність від кількості потоків | `POST /api/index` (`bench_index_api.py`) |
+| E2a | пропускна здатність і затримка REST-пошуку `keyword` від кількості клієнтів | Locust (`bench_load_rest.py`) |
+| E2b | те саме з розширенням через LLM: REST `expanded` і WebSocket | Locust, `asyncio` (`bench_load_rest.py`, `bench_load_ws.py`) |
+| E3 | вплив кількості шардів | `index_bench` (`bench_index_variants.py`) |
+| E4 | вплив розміру корпусу | `index_bench` |
+| E6 | локальна таблиця документа проти запису кожного токена під блокуванням шарда | `index_bench` |
+| E7 | порядок файлів: найбільші першими (LPT) проти порядку шляхів, частка простою потоків | `index_bench` |
+| E8 | побудова зі стемінгом і без: час, розмір словника, кількість знайдених документів | `index_bench` |
+
+`index_bench` (`bench/indexBench.cpp`) будує індекс тим самим кодом, що й сервер, але з перемикачами, яких немає в API. Він зібраний в образі `search-server` поруч із сервером. Скрипти лежать у `docs/benchmarks/`, результати потрапляють у `docs/benchmarks/results/`.
+
+**Підготовка** (один раз; потрібні Python 3.10+ і PG-19 `train` у `deepmind-gutenberg/train`):
+
+```bash
+cd docs/benchmarks
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python prepare_dataset.py
+docker compose build
+```
+
+`prepare_dataset.py` копіює 11 111 випадкових книг (seed 2026, близько 4,3 ГБ) у `~/bench-data/books` і робить вкладені підмножини 10/25/50 % у `~/bench-data/subsets/` (жорсткі посилання, без додаткового місця). Датасет варто класти на SSD з рідною файловою системою.
+
+**Побудова індексу** (E3, E4, E6, E7, E8; сервер не потрібен):
+
+```bash
+.venv/bin/python bench_index_variants.py            # усі п'ять експериментів
+.venv/bin/python bench_index_variants.py e7 e8      # лише вибрані
+```
+
+**Через API** (E1, E2): сервер має працювати на датасеті бенчмарків:
+
+```bash
+DATASET_DIR=~/bench-data/books docker compose up -d
+.venv/bin/python bench_index_api.py
+.venv/bin/python bench_load_rest.py --mode keyword
+.venv/bin/python bench_load_rest.py --mode expanded --users 1,2,4,8,16 --duration 60
+.venv/bin/python bench_load_ws.py --users 1,2,4,8,16 --duration 60
+```
+
+**Графіки й таблиці:**
+
+```bash
+.venv/bin/python plots.py
+```
+
+PNG-файли з'являються в `results/plots/`, ті самі числа таблицями в `results/summary.md`.
+
+**Методика.** Перед вимірюваннями виконується розігрівальний прогін (не записується), далі кожна конфігурація повторюється 5 разів, на графіках медіана і діапазон мінімум-максимум. E1 чергує кількість потоків по колу (1, 2, 4, ... і знову 1, 2, 4, ...), щоб повільні зміни стану машини не лягали на одну точку. Режим E6 «кожен токен» додає окремий постинг на кожне входження слова, тому такий індекс придатний лише для вимірювання часу й кількості блокувань, не для пошуку, і міряється на 10 % корпусу.
+
+Усі опції кожного скрипта: `.venv/bin/python <скрипт> --help`.
+
+`index_bench` можна запустити й напряму:
+
+```bash
+docker run --rm -v ~/bench-data/books:/bench:ro search-app-search-server ./build/index_bench --data /bench --threads 8 --repeat 3
+```
+
+Опції: `--threads N`, `--shards K`, `--per-token-lock`, `--as-is-order`, `--no-stemming`, `--warmup W`, `--repeat R`, `--query TEXT`. Результат — по рядку CSV на кожну побудову.
