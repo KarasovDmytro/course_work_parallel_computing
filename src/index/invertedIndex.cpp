@@ -95,6 +95,14 @@ int InvertedIndex::termCount() const {
     return total;
 }
 
+long long InvertedIndex::lockCount() const {
+    long long total = 0;
+    for (int i = 0; i < (int)shards.size(); i++) {
+        total += shards[i].lockCount();
+    }
+    return total;
+}
+
 int InvertedIndex::shardCount() const {
     return (int)shards.size();
 }

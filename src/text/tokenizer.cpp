@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Tokenizer::Tokenizer(bool useStemming) : useStemming(useStemming) {}
+
 bool Tokenizer::isTokenChar(unsigned char c) const {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
 }
@@ -30,7 +32,11 @@ bool Tokenizer::nextToken(const string& text, int& position, Token& token) const
         position++;
     }
     token.end = position;
-    token.term = stemmer.stem(word);
+    if (useStemming) {
+        token.term = stemmer.stem(word);
+    } else {
+        token.term = word;
+    }
     return true;
 }
 

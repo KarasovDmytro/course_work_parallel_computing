@@ -21,7 +21,7 @@ static bool isUtf8Continuation(char c) {
     return ((unsigned char)c & 0xC0) == 0x80;
 }
 
-SearchService::SearchService(InvertedIndex& index) : index(index) {
+SearchService::SearchService(InvertedIndex& index, bool useStemming) : index(index), tokenizer(useStemming) {
 }
 
 bool SearchService::isReady() const {

@@ -5,10 +5,17 @@
 #include "index/invertedIndex.h"
 #include "text/tokenizer.h"
 
+struct BuildOptions {
+    bool useStemming = true;
+    bool perTokenLock = false;
+    bool largestFirst = true;
+};
+
 struct BuildResult {
     bool started;
     int documents;
     int timeMs;
+    int taskTimeMs;
 };
 
 struct BuildStats {
@@ -20,6 +27,7 @@ struct BuildStats {
 class IndexBuilder {
 private:
     InvertedIndex& index;
+    BuildOptions options;
     Tokenizer tokenizer;
     std::string dataDir;
 
@@ -30,7 +38,7 @@ private:
     void indexFile(int docId, const std::string& path);
 
 public:
-    IndexBuilder(InvertedIndex& index, const std::string& dataDir);
+    IndexBuilder(InvertedIndex& index, const std::string& dataDir, BuildOptions options = BuildOptions());
 
     BuildResult build(int threadCount);
     BuildStats stats() const;

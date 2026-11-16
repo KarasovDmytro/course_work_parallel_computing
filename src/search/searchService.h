@@ -30,7 +30,7 @@ private:
     std::string makeSnippet(const std::string& path, const std::string& term) const;
 
 public:
-    SearchService(InvertedIndex& index);
+    SearchService(InvertedIndex& index, bool useStemming = true);
 
     bool isReady() const;
     SearchOutcome search(const std::string& query, const std::vector<std::string>& expandedWords, int limit) const;

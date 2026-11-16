@@ -1,5 +1,6 @@
 #include "indexBuilder.h"
 #include <algorithm>
+#include <atomic>
 #include <chrono>
 #include <filesystem>
 #include "common/fileReader.h"
@@ -9,7 +10,8 @@
 
 using namespace std;
 
-IndexBuilder::IndexBuilder(InvertedIndex& index, const string& dataDir) : index(index), dataDir(dataDir) {
+IndexBuilder::IndexBuilder(InvertedIndex& index, const string& dataDir, BuildOptions options)
+    : index(index), options(options), tokenizer(options.useStemming), dataDir(dataDir) {
 }
 
 vector<string> IndexBuilder::findFiles() const {
@@ -32,6 +34,14 @@ vector<string> IndexBuilder::findFiles() const {
 void IndexBuilder::indexFile(int docId, const string& path) {
     string text = readFile(path);
     vector<string> terms = tokenizer.tokenize(text);
+
+    if (options.perTokenLock) {
+        for (int i = 0; i < (int)terms.size(); i++) {
+            index.addPosting(terms[i], termHash(terms[i]), docId, 1);
+        }
+        return;
+    }
+
     HashTable<int> counts;
     for (int i = 0; i < (int)terms.size(); i++) {
         counts.getOrCreate(terms[i], termHash(terms[i]))++;
@@ -50,7 +60,7 @@ BuildResult IndexBuilder::build(int threadCount) {
 
     vector<string> paths = findFiles();
     if (!index.beginBuild(paths)) {
-        return {false, 0, 0};
+        return {false, 0, 0, 0};
     }
 
     vector<long long> sizes(paths.size());
@@ -60,18 +70,23 @@ BuildResult IndexBuilder::build(int threadCount) {
         sizes[i] = filesystem::file_size(paths[i], error);
         order[i] = i;
     }
-    sort(order.begin(), order.end(), [&sizes](int a, int b) {
-        return sizes[a] > sizes[b];
-    });
+    if (options.largestFirst) {
+        sort(order.begin(), order.end(), [&sizes](int a, int b) {
+            return sizes[a] > sizes[b];
+        });
+    }
 
+    atomic<long long> taskTimeUs{0};
     int failed = 0;
     int threadsUsed = 0;
     try {
         ThreadPool pool(threadCount);
         for (int i = 0; i < (int)order.size(); i++) {
             int docId = order[i];
-            pool.submit([this, docId, &paths] {
+            pool.submit([this, docId, &paths, &taskTimeUs] {
+                chrono::steady_clock::time_point taskStart = chrono::steady_clock::now();
                 indexFile(docId, paths[docId]);
+                taskTimeUs += chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - taskStart).count();
             });
         }
         pool.waitIdle();
@@ -92,7 +107,7 @@ BuildResult IndexBuilder::build(int threadCount) {
         lastStats.buildTimeMs = timeMs;
         lastStats.threadsUsed = threadsUsed;
     }
-    return {true, documents, timeMs};
+    return {true, documents, timeMs, (int)(taskTimeUs / 1000)};
 }
 
 BuildStats IndexBuilder::stats() const {

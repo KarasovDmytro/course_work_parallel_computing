@@ -34,5 +34,6 @@ public:
     int documentCount() const;
     const std::string& documentPath(int docId) const;
     int termCount() const;
+    long long lockCount() const;
     int shardCount() const;
 };
