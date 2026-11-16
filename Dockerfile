@@ -8,6 +8,7 @@ WORKDIR /app
 COPY CMakeLists.txt .
 COPY src src
 COPY clients clients
+COPY bench bench
 
 RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build
 RUN ln -s /app/build/search /usr/local/bin/search

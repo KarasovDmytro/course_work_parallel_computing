@@ -40,3 +40,17 @@ add_executable(search
     clients/cli/httpClient.cpp
 )
 target_link_libraries(search CURL::libcurl nlohmann_json::nlohmann_json)
+
+add_executable(index_bench
+    bench/indexBench.cpp
+    src/common/fileReader.cpp
+    src/concurrency/threadPool.cpp
+    src/text/stemmer.cpp
+    src/text/tokenizer.cpp
+    src/index/postingList.cpp
+    src/index/termHash.cpp
+    src/index/shard.cpp
+    src/index/invertedIndex.cpp
+    src/indexing/indexBuilder.cpp
+)
+target_link_libraries(index_bench Threads::Threads)
