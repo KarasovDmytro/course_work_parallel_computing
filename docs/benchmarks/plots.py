@@ -40,6 +40,7 @@ plt.rcParams.update({
     "axes.spines.top": False,
     "axes.spines.right": False,
     "axes.grid": True,
+    "axes.axisbelow": True,
     "grid.color": GRID,
     "grid.linewidth": 0.8,
     "xtick.color": TEXT,
@@ -348,6 +349,32 @@ def plot_e8():
     ax.grid(axis="x", visible=False)
     ax.legend()
     save(fig, "e8_hits.png")
+
+    labels = ["зі стемінгом", "без стемінгу"]
+    times = [[float(row["time_ms"]) / 1000 for row in part] for part in (with_stem, without_stem)]
+    medians = [med(values) for values in times]
+    errors = [[m - min(v) for m, v in zip(medians, times)], [max(v) - m for m, v in zip(medians, times)]]
+    fig, ax = plt.subplots(figsize=(5, 4.2))
+    ax.bar(labels, medians, width=0.5, color=COLORS[:2], hatch=[None, "//"], edgecolor="white", linewidth=0.5,
+           yerr=errors, ecolor=TEXT, capsize=4)
+    for x, m in enumerate(medians):
+        ax.annotate(f"{m:.1f} с", (x, m), textcoords="offset points", xytext=(0, 10), ha="center", color=TEXT)
+    ax.set(title="E8. Час побудови (25 % корпусу, 8 потоків)", ylabel="час, с")
+    ax.grid(axis="x", visible=False)
+    ax.set_ylim(0, max(medians) * 1.2)
+    save(fig, "e8_time.png")
+
+    terms = [int(part[0]["terms"]) for part in (with_stem, without_stem)]
+    fig, ax = plt.subplots(figsize=(5, 4.2))
+    ax.bar(labels, [t / 1000 for t in terms], width=0.5, color=COLORS[:2], hatch=[None, "//"], edgecolor="white",
+           linewidth=0.5)
+    for x, t in enumerate(terms):
+        ax.annotate(f"{t / 1000:.0f} тис.", (x, t / 1000), textcoords="offset points", xytext=(0, 4), ha="center",
+                    color=TEXT)
+    ax.set(title="E8. Розмір словника (25 % корпусу)", ylabel="унікальних термінів, тис.")
+    ax.grid(axis="x", visible=False)
+    ax.set_ylim(0, max(terms) / 1000 * 1.15)
+    save(fig, "e8_terms.png")
 
     def describe(part):
         return [f"{med([float(row['time_ms']) for row in part]):.0f}", part[0]["terms"]]
