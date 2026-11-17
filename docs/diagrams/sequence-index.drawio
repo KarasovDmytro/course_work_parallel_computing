@@ -1,129 +1,262 @@
 <mxfile host="app.diagrams.net">
-  <diagram id="Sequence: index" name="Sequence: index">
-    <mxGraphModel dx="1971" dy="1064" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="760" math="0" shadow="0">
+  <diagram id="seq-index" name="Sequence: index">
+    <mxGraphModel dx="1960" dy="1067" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1340" pageHeight="1749" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="m17" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="Додавання&lt;br&gt;для кожного терміна файлу">
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=14;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Sequence побудови індексу (POST /api/index)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="40" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="lop" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="Оператор&lt;br&gt;(API-клієнт)" vertex="1">
+          <mxGeometry height="1639" width="140" x="40" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lcrow" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="HTTP-сервер&lt;br&gt;(Crow)" vertex="1">
+          <mxGeometry height="1639" width="140" x="220" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lic" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="IndexingController" vertex="1">
+          <mxGeometry height="1639" width="140" x="400" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lib" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="IndexBuilder" vertex="1">
+          <mxGeometry height="1639" width="140" x="580" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ltp" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="ThreadPool&lt;br&gt;(N робітників)" vertex="1">
+          <mxGeometry height="1639" width="140" x="760" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lii" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="InvertedIndex" vertex="1">
+          <mxGeometry height="1639" width="140" x="940" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="lsh" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="Shard[i]" vertex="1">
+          <mxGeometry height="1639" width="140" x="1120" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="bop" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="1434" width="10" x="105" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="bcrow" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="1434" width="10" x="285" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="bic" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="1354" width="10" x="465" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="bib" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="1174" width="10" x="645" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="btp" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="528" width="10" x="825" y="762" as="geometry" />
+        </mxCell>
+        <mxCell id="bii" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="976" width="10" x="1005" y="414" as="geometry" />
+        </mxCell>
+        <mxCell id="bsh" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="10" x="1185" y="1150" as="geometry" />
+        </mxCell>
+        <mxCell id="v1" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=50;height=25;fillColor=none;strokeColor=#000000;" value="alt" vertex="1">
+          <mxGeometry height="70" width="340" x="210" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="v2" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[тіло не JSON-об&#39;єкт або threads не ціле 1..256]" vertex="1">
+          <mxGeometry height="25" width="280" x="266" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="v3" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=50;height=25;fillColor=none;strokeColor=#000000;" value="alt" vertex="1">
+          <mxGeometry height="150" width="700" x="390" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="v4" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[індексація вже триває]" vertex="1">
+          <mxGeometry height="25" width="640" x="446" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="v5" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=50;height=25;fillColor=none;strokeColor=#000000;" value="loop" vertex="1">
+          <mxGeometry height="70" width="340" x="570" y="822" as="geometry" />
+        </mxCell>
+        <mxCell id="v6" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[для кожного файлу]" vertex="1">
+          <mxGeometry height="25" width="280" x="626" y="822" as="geometry" />
+        </mxCell>
+        <mxCell id="v7" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=50;height=25;fillColor=none;strokeColor=#000000;" value="loop" vertex="1">
+          <mxGeometry height="124" width="684" x="578" y="1071" as="geometry" />
+        </mxCell>
+        <mxCell id="v8" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[для кожного терміна документа]" vertex="1">
+          <mxGeometry height="25" width="624" x="634" y="1071" as="geometry" />
+        </mxCell>
+        <mxCell id="v9" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=50;height=25;fillColor=none;strokeColor=#000000;" value="par" vertex="1">
+          <mxGeometry height="288" width="700" x="570" y="922" as="geometry" />
+        </mxCell>
+        <mxCell id="v10" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[робітники паралельно, кожен бере задачу з черги]" vertex="1">
+          <mxGeometry height="25" width="640" x="626" y="922" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="POST /api/index {&quot;threads&quot;: N}">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="690" y="420" as="sourcePoint" />
-            <mxPoint x="830" y="420" as="targetPoint" />
+            <mxPoint x="115" y="140" as="sourcePoint" />
+            <mxPoint x="285" y="140" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="t1" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontSize=14;" value="Sequence побудови індексу (POST /api/index)" vertex="1">
-          <mxGeometry height="30" width="900" x="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_op" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="Оператор&lt;br&gt;(API-клієнт)" vertex="1">
-          <mxGeometry height="600" width="130" x="20" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_crow" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="HTTP-сервер" vertex="1">
-          <mxGeometry height="600" width="130" x="170" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_ic" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="IndexingController" vertex="1">
-          <mxGeometry height="600" width="130" x="320" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_ib" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="IndexBuilder" vertex="1">
-          <mxGeometry height="600" width="130" x="470" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_tp" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="ThreadPool&lt;br&gt;(воркери)" vertex="1">
-          <mxGeometry height="600" width="130" x="620" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="L_ii" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=50;" value="InvertedIndex" vertex="1">
-          <mxGeometry height="600" width="130" x="770" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="b2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="475" width="10" x="80" y="140" as="geometry" />
-        </mxCell>
-        <mxCell id="b3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="475" width="10" x="230" y="140" as="geometry" />
-        </mxCell>
-        <mxCell id="b4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="402" width="10" x="380" y="178" as="geometry" />
-        </mxCell>
-        <mxCell id="b5" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="329" width="10" x="530" y="216" as="geometry" />
-        </mxCell>
-        <mxCell id="b6" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="251" width="10" x="680" y="254" as="geometry" />
-        </mxCell>
-        <mxCell id="b7" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;fillColor=#FFFFFF;strokeColor=light-dark(#000000,#000000);" value="" vertex="1">
-          <mxGeometry height="25" width="10" x="830" y="405" as="geometry" />
-        </mxCell>
-        <mxCell id="m8" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="POST /api/index&lt;br&gt;{&quot;threads&quot;: N}">
+        <mxCell id="e12" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="handleIndex(request)">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="90" y="140" as="sourcePoint" />
-            <mxPoint x="230" y="140" as="targetPoint" />
+            <mxPoint x="295" y="180" as="sourcePoint" />
+            <mxPoint x="465" y="180" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m9" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="обробник роуту /api/index">
+        <mxCell id="e13" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="400 {status: error, message}">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="240" y="178" as="sourcePoint" />
-            <mxPoint x="380" y="178" as="targetPoint" />
+            <mxPoint x="465" y="265" as="sourcePoint" />
+            <mxPoint x="295" y="265" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m10" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="Build(dataDir, N)">
+        <mxCell id="e14" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="build(N)">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="390" y="216" as="sourcePoint" />
-            <mxPoint x="530" y="216" as="targetPoint" />
+            <mxPoint x="475" y="320" as="sourcePoint" />
+            <mxPoint x="645" y="320" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m11" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="створити пул на N потоків">
+        <mxCell id="e15" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="findFiles(): *.txt рекурсивно,&lt;br&gt;сортування шляхів (docId = номер)">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="540" y="254" as="sourcePoint" />
-            <mxPoint x="680" y="254" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="695" y="360" />
+              <mxPoint x="695" y="380" />
+            </Array>
+            <mxPoint x="655" y="360" as="sourcePoint" />
+            <mxPoint x="655" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="f12" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=72;height=25;fillColor=none;strokeColor=#030303;" value="loop" vertex="1">
-          <mxGeometry height="62" width="315" x="450" y="275" as="geometry" />
-        </mxCell>
-        <mxCell id="t13" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[для кожного файлу]" vertex="1">
-          <mxGeometry height="20" width="231" x="550" y="275" as="geometry" />
-        </mxCell>
-        <mxCell id="m14" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="Дати завдання воркерам">
+        <mxCell id="e16" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="beginBuild(paths)">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="540" y="322" as="sourcePoint" />
-            <mxPoint x="680" y="322" as="targetPoint" />
+            <mxPoint x="655" y="424" as="sourcePoint" />
+            <mxPoint x="1005" y="424" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="f15" parent="1" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=64;height=25;fillColor=none;strokeColor=#030303;" value="par" vertex="1">
-          <mxGeometry height="95" width="320" x="600" y="360" as="geometry" />
-        </mxCell>
-        <mxCell id="t16" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" value="[воркери паралельно]" vertex="1">
-          <mxGeometry height="20" width="244" x="690" y="360" as="geometry" />
-        </mxCell>
-        <mxCell id="m18" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="Доробили?">
+        <mxCell id="e17" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="CAS Empty|Ready -&gt; Building,&lt;br&gt;readMutex.lock(), очистити шарди">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="540" y="480" as="sourcePoint" />
-            <mxPoint x="680" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1055" y="464" />
+              <mxPoint x="1055" y="484" />
+            </Array>
+            <mxPoint x="1015" y="464" as="sourcePoint" />
+            <mxPoint x="1015" y="484" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m19" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" value="усі завдання завершено">
+        <mxCell id="e18" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="false">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="680" y="505" as="sourcePoint" />
-            <mxPoint x="540" y="505" as="targetPoint" />
+            <mxPoint x="1005" y="573" as="sourcePoint" />
+            <mxPoint x="655" y="573" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m20" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" value="{documents, time_ms}">
+        <mxCell id="e19" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="started = false">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="530" y="545" as="sourcePoint" />
-            <mxPoint x="390" y="545" as="targetPoint" />
+            <mxPoint x="645" y="613" as="sourcePoint" />
+            <mxPoint x="475" y="613" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m21" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" value="результат побудови">
+        <mxCell id="e20" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="409 indexing is already in progress">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="380" y="580" as="sourcePoint" />
-            <mxPoint x="240" y="580" as="targetPoint" />
+            <mxPoint x="465" y="653" as="sourcePoint" />
+            <mxPoint x="295" y="653" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="m22" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;endSize=8;curved=0;rounded=0;" value="200 OK&lt;br&gt;{&quot;status&quot;:&quot;ok&quot;,&quot;documents_indexed&quot;:N,&quot;time_ms&quot;:T}">
-          <mxGeometry relative="1" x="-0.1429" y="35" as="geometry">
+        <mxCell id="e21" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="порядок задач: спершу найбільші&lt;br&gt;файли">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="695" y="708" />
+              <mxPoint x="695" y="728" />
+            </Array>
+            <mxPoint x="655" y="708" as="sourcePoint" />
+            <mxPoint x="655" y="728" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="ThreadPool(N)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="772" as="sourcePoint" />
+            <mxPoint x="825" y="772" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="submit(indexFile(docId, path))">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="857" as="sourcePoint" />
+            <mxPoint x="825" y="857" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="indexFile(docId, path)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="957" as="sourcePoint" />
+            <mxPoint x="655" y="957" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="readFile -&gt; tokenize -&gt;&lt;br&gt;локальна HashTable&lt;int&gt; (tf)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="695" y="997" />
+              <mxPoint x="695" y="1017" />
+            </Array>
+            <mxPoint x="655" y="997" as="sourcePoint" />
+            <mxPoint x="655" y="1017" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e26" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="addPosting(term, hash, docId, tf)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="1106" as="sourcePoint" />
+            <mxPoint x="1005" y="1106" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="&lt;div&gt;addPosting під tableMutex шарду&amp;nbsp;&lt;/div&gt;&lt;div&gt;(№ шарду - старші біти hash)&lt;/div&gt;">
+          <mxGeometry relative="1" as="geometry">
             <mxPoint as="offset" />
-            <mxPoint x="230" y="615" as="sourcePoint" />
-            <mxPoint x="90" y="615" as="targetPoint" />
+            <mxPoint x="1015" y="1160" as="sourcePoint" />
+            <mxPoint x="1185" y="1160" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="t23" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontSize=11;" value="Якщо&amp;nbsp; threads &amp;lt; 1 -&amp;gt; 400; індексація вже триває -&amp;gt; 409 (відповідь {&quot;status&quot;:&quot;error&quot;,&quot;message&quot;:&quot;...&quot;})." vertex="1">
-          <mxGeometry height="40" width="880" x="40" y="665" as="geometry" />
+        <mxCell id="e28" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="waitIdle()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="1230" as="sourcePoint" />
+            <mxPoint x="825" y="1230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="усі задачі завершено">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="825" y="1270" as="sourcePoint" />
+            <mxPoint x="655" y="1270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" value="finishBuild(true)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="655" y="1310" as="sourcePoint" />
+            <mxPoint x="1005" y="1310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="state = Ready,&lt;br&gt;readMutex.unlock()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1055" y="1350" />
+              <mxPoint x="1055" y="1370" />
+            </Array>
+            <mxPoint x="1015" y="1350" as="sourcePoint" />
+            <mxPoint x="1015" y="1370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="1" style="html=1;align=left;spacingLeft=4;endArrow=block;rounded=0;curved=0;" value="&lt;div&gt;Оновлення&lt;/div&gt;&lt;div&gt;lastStats під statsMutex&lt;/div&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="695" y="1414" />
+              <mxPoint x="695" y="1434" />
+            </Array>
+            <mxPoint x="655" y="1414" as="sourcePoint" />
+            <mxPoint x="655" y="1434" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e33" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="&lt;div&gt;BuildResult {started, documents,&amp;nbsp;&lt;/div&gt;&lt;div&gt;timeMs, taskTimeMs}&lt;/div&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="645" y="1464" as="sourcePoint" />
+            <mxPoint x="475" y="1464" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="jsonResponse(200, ...)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="465" y="1504" as="sourcePoint" />
+            <mxPoint x="295" y="1504" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e35" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" value="200 OK {&quot;status&quot;:&quot;ok&quot;,&quot;documents_indexed&quot;:N,&quot;time_ms&quot;:T}">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="285" y="1544" as="sourcePoint" />
+            <mxPoint x="115" y="1544" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="v36" parent="1" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;align=left;spacingLeft=6;fontSize=11;" value="Виняток під час побудови: finishBuild(false) (індекс знову Empty) і 500. Помилка в окремому файлі не дає 500. Виняток всередині indexFile, наприклад якщо файл не читається, перехоплює пул і рахує його у failedTasks. Побудова продовжується, а documents = кількість файлів − failed. До 500 призводять лише винятки поза задачами, наприклад якщо не вдалося створити потоки.Пул створюється на кожну побудову і зупиняється після waitIdle(); пошук під час побудови отримує 409." vertex="1">
+          <mxGeometry height="70" width="840" x="50" y="1600" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -1,75 +1,100 @@
 <mxfile host="app.diagrams.net">
   <diagram id="deployment" name="Deployment">
-    <mxGraphModel dx="1377" dy="743" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="900" math="0" shadow="0">
+    <mxGraphModel dx="1960" dy="1067" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="host" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=12;verticalAlign=top;fontStyle=1;fillColor=#b1ddf0;strokeColor=#10739e;container=1;collapsible=0;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Хост&lt;/font&gt;" vertex="1">
-          <mxGeometry height="830" width="900" x="135" y="35" as="geometry" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=14;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Deployment diagram: docker compose up&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="900" x="40" y="10" as="geometry" />
         </mxCell>
-        <mxCell id="clients" parent="host" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#3B5B92;container=1;collapsible=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Клієнти&lt;/font&gt;" vertex="1">
-          <mxGeometry height="140" width="840" x="30" y="60" as="geometry" />
+        <mxCell id="host" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=12;verticalAlign=top;container=1;collapsible=0;fontStyle=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=14;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Хост (Linux / Windows / macOS з Docker)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="780" width="1320" x="30" y="50" as="geometry" />
         </mxCell>
-        <mxCell id="browser" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;" value="Браузер&lt;br&gt;(Web UI)" vertex="1">
-          <mxGeometry height="60" width="180" x="60" y="55" as="geometry" />
+        <mxCell id="clients" parent="host" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;&lt;font&gt;Клієнти&lt;/font&gt;&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="520" width="300" x="30" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="cli" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;" value="CLI&lt;br&gt;/search" vertex="1">
-          <mxGeometry height="60" width="180" x="330" y="55" as="geometry" />
+        <mxCell id="browser" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="Браузер&lt;br&gt;(Web UI: GET /, WS /ws/search,&lt;br&gt;REST health/index/stats)" vertex="1">
+          <mxGeometry height="90" width="250" x="25" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="op" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;" value="Оператор&lt;br&gt;(curl або скрипт)" vertex="1">
-          <mxGeometry height="60" width="180" x="600" y="55" as="geometry" />
+        <mxCell id="script" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="Скрипт ./search або search.cmd&lt;br&gt;(docker compose exec&lt;br&gt;search-server search ...)" vertex="1">
+          <mxGeometry height="90" width="250" x="25" y="90.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="engine" parent="host" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;fillColor=#FFFFFF;strokeColor=#3B5B92;container=1;collapsible=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Docker&lt;/font&gt;" vertex="1">
-          <mxGeometry height="550" width="580" x="30" y="250" as="geometry" />
+        <mxCell id="operator" parent="clients" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="Оператор&lt;br&gt;(curl, Postman, скрипт)" vertex="1">
+          <mxGeometry height="70" width="250" x="25" y="430" as="geometry" />
         </mxCell>
-        <mxCell id="compose" parent="engine" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;fillColor=#d0cee2;strokeColor=#56517e;container=1;collapsible=0;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Docker Compose&lt;/font&gt;" vertex="1">
-          <mxGeometry height="370" width="540" x="20" y="50" as="geometry" />
+        <mxCell id="compose" parent="host" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;container=1;collapsible=0;fillColor=#d0cee2;strokeColor=#56517e;fontSize=14;" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;search-app&lt;/font&gt;&lt;/b&gt;" vertex="1">
+          <mxGeometry height="700" width="910" x="380" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="ssNode" parent="compose" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;container=1;collapsible=0;" value="Контейнер search-server, порт 8080&lt;br&gt;healthcheck: GET /api/health" vertex="1">
-          <mxGeometry height="130" width="480" x="30" y="50" as="geometry" />
+        <mxCell id="server" parent="compose" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;container=1;collapsible=0;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="Контейнер search-server&lt;br&gt;порт 8080, healthcheck GET /api/health" vertex="1">
+          <mxGeometry height="370" width="400" x="30" y="87" as="geometry" />
         </mxCell>
-        <mxCell id="app" parent="ssNode" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;" value="search_server&lt;br&gt;(C++20)" vertex="1">
-          <mxGeometry height="55" width="180" x="150" y="65" as="geometry" />
+        <mxCell id="cli" parent="server" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="search (CLI-клієнтl)" vertex="1">
+          <mxGeometry height="44.848484848484844" width="360" x="20" y="200.000303030303" as="geometry" />
         </mxCell>
-        <mxCell id="olNode" parent="compose" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;fillColor=#fad7ac;strokeColor=#b46504;container=1;collapsible=0;" value="Контейнер ollama, порт 11434" vertex="1">
-          <mxGeometry height="110" width="480" x="30" y="240" as="geometry" />
+        <mxCell id="bench" parent="server" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="index_bench (бенчмарк побудови індексу)" vertex="1">
+          <mxGeometry height="44.848484848484844" width="360" x="20" y="67.27272727272727" as="geometry" />
         </mxCell>
-        <mxCell id="ollamaApp" parent="olNode" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;" value="ollama&lt;br&gt;(локальна LLM)" vertex="1">
-          <mxGeometry height="55" width="180" x="150" y="45" as="geometry" />
+        <mxCell id="page" parent="server" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="/app/clients/web/index.html (WEB_DIR)" vertex="1">
+          <mxGeometry height="44.848484848484844" width="360" x="20" y="130.00151515151512" as="geometry" />
         </mxCell>
-        <mxCell id="models" parent="engine" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" value="Том ollama_models" vertex="1">
-          <mxGeometry height="80" width="200" x="190" y="450" as="geometry" />
+        <mxCell id="bin" parent="server" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="search_server (C++20, Crow)&lt;br&gt;REST + WebSocket + Web UI&lt;br&gt;HTTP_THREADS = 64" vertex="1">
+          <mxGeometry height="78.48484848484847" width="360" x="20" y="280.30303030303025" as="geometry" />
         </mxCell>
-        <mxCell id="data" parent="host" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;" value="Папка з датасетом" vertex="1">
-          <mxGeometry height="90" width="220" x="640" y="397.5" as="geometry" />
-        </mxCell>
-        <mxCell id="e_browser_app" edge="1" parent="1" source="browser" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="app" value="HTTP + WebSocket">
-          <mxGeometry relative="1" x="-0.642" y="-5" as="geometry">
+        <mxCell id="e4" edge="1" parent="server" source="cli" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;" target="bin" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP localhost:8080&lt;/font&gt;">
+          <mxGeometry relative="1" x="-0.1453" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_cli_app" edge="1" parent="1" source="cli" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="app" value="HTTP (REST)">
-          <mxGeometry relative="1" x="-0.6335" y="3" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
+        <mxCell id="ollama" parent="compose" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;container=1;collapsible=0;fillColor=#fad7ac;strokeColor=#b46504;fontSize=14;" value="Контейнер ollama&lt;br&gt;порт 11434 (в мережі Compose)" vertex="1">
+          <mxGeometry height="160" width="380" x="490" y="257" as="geometry" />
         </mxCell>
-        <mxCell id="e_op_app" edge="1" parent="1" source="op" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="app" value="&lt;span style=&quot;&quot;&gt;HTTP (REST)&lt;/span&gt;">
-          <mxGeometry relative="1" x="-0.6708" y="7" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
+        <mxCell id="ollamaBin" parent="ollama" style="shape=note;size=12;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B5B92;fontSize=14;" value="модель OLLAMA_MODEL (qwen2.5:0.5b)" vertex="1">
+          <mxGeometry height="60" width="340" x="20" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="e_app_ollama" edge="1" parent="1" source="app" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="ollamaApp" value="&lt;span&gt;HTTP&lt;br&gt;http://ollama:11434&lt;/span&gt;">
-          <mxGeometry relative="1" x="-0.3043" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
+        <mxCell id="init" parent="compose" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;container=1;collapsible=0;fillColor=#fad7ac;strokeColor=#b46504;fontSize=14;" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Контейнер ollama-init (одноразовий)&lt;/div&gt;ollama pull $OLLAMA_MODEL, після healthcheck ollama" vertex="1">
+          <mxGeometry height="120" width="380" x="490" y="107" as="geometry" />
         </mxCell>
-        <mxCell id="e_app_data" edge="1" parent="1" source="app" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="data" value="&lt;span&gt;читає документи&lt;br&gt;(read-only)&lt;/span&gt;">
+        <mxCell id="models" parent="compose" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;fontSize=14;" value="&lt;font&gt;Том ollama_models&lt;br&gt;/root/.ollama&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="220" x="570" y="507" as="geometry" />
+        </mxCell>
+        <mxCell id="dataset" parent="compose" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d80073;strokeColor=#A50040;fontColor=#ffffff;fontSize=14;" value="&lt;font&gt;Папка з датасетом&lt;br&gt;${DATASET_DIR:-./data}&lt;br&gt;-&amp;gt; /data:ro&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="240" x="110" y="507" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="compose" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;POST /api/pull&lt;/font&gt;">
           <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="227" as="sourcePoint" />
+            <mxPoint x="800" y="317" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="compose" source="bin" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;dashed=1;" target="dataset" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;читає *.txt (read-only)&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="compose" source="bin" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=6;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;" target="ollamaBin" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP http://ollama:11434&lt;br&gt;/api/tags, /api/generate&lt;/font&gt;">
+          <mxGeometry relative="1" x="-0.3958" y="-47" as="geometry">
+            <mxPoint x="-7" y="24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="host" source="browser" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;entryX=-0.003;entryY=0.141;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;" target="bin" value="&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP +&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;WebSocket :8080&lt;/font&gt;&lt;/div&gt;">
+          <mxGeometry relative="1" x="0.0565" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="host" source="operator" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;exitX=1;exitY=0.5;exitDx=0;exitDy=6;exitPerimeter=0;entryX=0.003;entryY=0.911;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;rounded=0;curved=0;" target="bin" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;HTTP REST :8080&lt;/font&gt;">
+          <mxGeometry relative="1" x="-0.305" y="-19" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_ollama_models" edge="1" parent="1" source="ollamaApp" style="html=1;dashed=1;endArrow=open;endFill=0;labelBackgroundColor=none;" target="models" value="зберігає моделі">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="e2" edge="1" parent="1" source="script" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;dashed=1;exitX=1.004;exitY=0.544;exitDx=0;exitDy=0;exitPerimeter=0;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="cli" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;docker compose exec&lt;/font&gt;">
+          <mxGeometry relative="1" x="-0.0149" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="390" y="248.96" />
+              <mxPoint x="390" y="419.42" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="ollamaBin" style="html=1;endArrow=open;endFill=0;labelBackgroundColor=#FFFFFF;fontSize=14;dashed=1;" target="models" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;зберігає моделі&lt;/font&gt;">
+          <mxGeometry relative="1" x="0.2308" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
